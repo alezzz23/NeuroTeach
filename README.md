@@ -71,5 +71,3 @@ neuroteach/
 - Modo colaborativo con IA
 
 ---
-
-> _¿Listo para empezar? Puedes modificar este README según evolucione el proyecto._ 
