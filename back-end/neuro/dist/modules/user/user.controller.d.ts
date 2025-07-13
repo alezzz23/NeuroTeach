@@ -6,15 +6,8 @@ export declare class UserController {
         id: number;
         name: string;
         email: string;
+        password: string | null;
     } | {
         error: string;
-    }>;
-    createUser(data: {
-        name: string;
-        email: string;
-    }): Promise<{
-        id: number;
-        name: string;
-        email: string;
     }>;
 }

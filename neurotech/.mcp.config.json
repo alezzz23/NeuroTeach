@@ -1,0 +1,20 @@
+{
+  "projectName": "neurotech-backend",
+  "root": "backend/neuro/",
+  "src": "backend/neuro/src/",
+  "modules": [
+    "backend/neuro/src/modules/emotion/",
+    "backend/neuro/src/modules/history/",
+    "backend/neuro/src/modules/tutor/",
+    "backend/neuro/src/modules/user/",
+    "frontend/neuro/src/modules/user/",
+    "frontend/neuro/src/modules/history/",
+    "frontend/neuro/src/modules/emotion/",
+    "frontend/neuro/src/modules/tutor/"
+  ],
+  "exclude": [
+    "node_modules",
+    "test",
+    "dist"
+  ]
+} 

@@ -9,7 +9,11 @@ export class UserService {
     return this.prisma.user.findUnique({ where: { id } });
   }
 
-  async createUser(data: { name: string; email: string }) {
+  async getUserByEmail(email: string) {
+    return this.prisma.user.findUnique({ where: { email } });
+  }
+
+  async createUser(data: { name: string; email: string; password: string }) {
     return this.prisma.user.create({ data });
   }
 

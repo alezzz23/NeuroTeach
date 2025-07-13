@@ -8,6 +8,7 @@ import { UserModule } from './modules/user/user.module';
 import { HistoryModule } from './modules/history/history.module';
 import { AdaptationModule } from './modules/adaptation/adaptation.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { PrismaModule } from './prisma/prisma.module';
     HistoryModule,
     AdaptationModule,
     PrismaModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

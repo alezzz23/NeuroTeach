@@ -17,6 +17,7 @@ const user_module_1 = require("./modules/user/user.module");
 const history_module_1 = require("./modules/history/history.module");
 const adaptation_module_1 = require("./modules/adaptation/adaptation.module");
 const prisma_module_1 = require("./prisma/prisma.module");
+const auth_module_1 = require("./modules/auth/auth.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -30,6 +31,7 @@ exports.AppModule = AppModule = __decorate([
             history_module_1.HistoryModule,
             adaptation_module_1.AdaptationModule,
             prisma_module_1.PrismaModule,
+            auth_module_1.AuthModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

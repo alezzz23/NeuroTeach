@@ -20,6 +20,9 @@ let UserService = class UserService {
     async getUserById(id) {
         return this.prisma.user.findUnique({ where: { id } });
     }
+    async getUserByEmail(email) {
+        return this.prisma.user.findUnique({ where: { email } });
+    }
     async createUser(data) {
         return this.prisma.user.create({ data });
     }

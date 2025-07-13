@@ -13,9 +13,4 @@ export class UserController {
     }
     return user;
   }
-
-  @Post()
-  async createUser(@Body() data: { name: string; email: string }) {
-    return this.userService.createUser(data);
-  }
 }

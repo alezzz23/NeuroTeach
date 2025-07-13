@@ -6,18 +6,28 @@ export declare class UserService {
         id: number;
         name: string;
         email: string;
+        password: string | null;
+    } | null>;
+    getUserByEmail(email: string): Promise<{
+        id: number;
+        name: string;
+        email: string;
+        password: string | null;
     } | null>;
     createUser(data: {
         name: string;
         email: string;
+        password: string;
     }): Promise<{
         id: number;
         name: string;
         email: string;
+        password: string | null;
     }>;
     getAllUsers(): Promise<{
         id: number;
         name: string;
         email: string;
+        password: string | null;
     }[]>;
 }
