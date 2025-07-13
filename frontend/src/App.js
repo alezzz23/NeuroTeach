@@ -31,15 +31,50 @@ function AppRoutes() {
   const { user } = useAuth();
   return (
     <>
-      <nav style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>
-        <Link to="/">Inicio</Link>
-        {user && <Link to="/webcam">Webcam</Link>}
-        {user && <Link to="/chat">Chat Tutor IA</Link>}
-        {user && <Link to="/dashboard">Dashboard</Link>}
-        {user && <Link to="/adaptation">Adaptación</Link>}
-        {!user && <Link to="/login">Login</Link>}
-        {!user && <Link to="/register">Registro</Link>}
-        {user && <Link to="/logout">Logout</Link>}
+      <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+        <div className="container-fluid">
+          <Link className="navbar-brand d-flex align-items-center" to="/">
+            <i className="fas fa-brain me-2"></i> NeuroTeach
+          </Link>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav ms-auto">
+              {user && (
+                <>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/webcam"><i className="fas fa-video me-1"></i>Webcam</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/chat"><i className="fas fa-robot me-1"></i>Chat Tutor IA</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/dashboard"><i className="fas fa-chart-line me-1"></i>Dashboard</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/adaptation"><i className="fas fa-lightbulb me-1"></i>Adaptación</Link>
+                  </li>
+                </>
+              )}
+              {!user && (
+                <>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/login"><i className="fas fa-sign-in-alt me-1"></i>Login</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/register"><i className="fas fa-user-plus me-1"></i>Registro</Link>
+                  </li>
+                </>
+              )}
+              {user && (
+                <li className="nav-item">
+                  <Link className="nav-link" to="/logout"><i className="fas fa-sign-out-alt me-1"></i>Logout</Link>
+                </li>
+              )}
+            </ul>
+          </div>
+        </div>
       </nav>
       <Routes>
         <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />} />

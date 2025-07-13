@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.HistoryController = void 0;
 const common_1 = require("@nestjs/common");
 const history_service_1 = require("./history.service");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 let HistoryController = class HistoryController {
     historyService;
     constructor(historyService) {
@@ -45,6 +46,7 @@ __decorate([
 ], HistoryController.prototype, "addHistory", null);
 exports.HistoryController = HistoryController = __decorate([
     (0, common_1.Controller)('history'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __metadata("design:paramtypes", [history_service_1.HistoryService])
 ], HistoryController);
 //# sourceMappingURL=history.controller.js.map

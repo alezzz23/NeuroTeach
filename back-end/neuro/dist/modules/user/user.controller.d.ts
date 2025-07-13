@@ -6,7 +6,8 @@ export declare class UserController {
         id: number;
         name: string;
         email: string;
-        password: string | null;
+        password: string;
+        role: string;
     } | {
         error: string;
     }>;

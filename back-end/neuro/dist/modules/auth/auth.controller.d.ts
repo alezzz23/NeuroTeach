@@ -10,14 +10,19 @@ export declare class AuthController {
         id: number;
         name: string;
         email: string;
-        password: string | null;
+        password: string;
+        role: string;
     }>;
     login(body: {
         email: string;
         password: string;
     }): Promise<{
-        id: number;
-        name: string;
-        email: string;
+        access_token: string;
+        user: {
+            id: number;
+            name: string;
+            email: string;
+            role: string;
+        };
     }>;
 }

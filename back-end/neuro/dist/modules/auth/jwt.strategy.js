@@ -9,30 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserService = void 0;
+exports.JwtStrategy = void 0;
 const common_1 = require("@nestjs/common");
-const prisma_service_1 = require("../../prisma/prisma.service");
-let UserService = class UserService {
-    prisma;
-    constructor(prisma) {
-        this.prisma = prisma;
+const passport_1 = require("@nestjs/passport");
+const passport_jwt_1 = require("passport-jwt");
+let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
+    constructor() {
+        super({
+            jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
+            ignoreExpiration: false,
+            secretOrKey: process.env.JWT_SECRET,
+        });
     }
-    async getUserById(id) {
-        return this.prisma.user.findUnique({ where: { id } });
-    }
-    async getUserByEmail(email) {
-        return this.prisma.user.findUnique({ where: { email } });
-    }
-    async createUser(data) {
-        return this.prisma.user.create({ data: { ...data, role: data['role'] || 'user' } });
-    }
-    async getAllUsers() {
-        return this.prisma.user.findMany();
+    async validate(payload) {
+        return { userId: payload.sub, email: payload.email, role: payload.role };
     }
 };
-exports.UserService = UserService;
-exports.UserService = UserService = __decorate([
+exports.JwtStrategy = JwtStrategy;
+exports.JwtStrategy = JwtStrategy = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
-], UserService);
-//# sourceMappingURL=user.service.js.map
+    __metadata("design:paramtypes", [])
+], JwtStrategy);
+//# sourceMappingURL=jwt.strategy.js.map

@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TutorController = void 0;
 const common_1 = require("@nestjs/common");
 const tutor_service_1 = require("./tutor.service");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 let TutorController = class TutorController {
     tutorService;
     constructor(tutorService) {
@@ -27,6 +28,7 @@ let TutorController = class TutorController {
 exports.TutorController = TutorController;
 __decorate([
     (0, common_1.Post)('ask'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Body)('prompt')),
     __param(1, (0, common_1.Body)('emotion')),
     __metadata("design:type", Function),

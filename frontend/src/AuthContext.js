@@ -8,6 +8,18 @@ export function AuthProvider({ children }) {
     return stored ? JSON.parse(stored) : null;
   });
 
+  // Nuevo: obtener el token JWT
+  const getToken = () => {
+    const stored = localStorage.getItem('user');
+    if (!stored) return null;
+    try {
+      const parsed = JSON.parse(stored);
+      return parsed.access_token || null;
+    } catch {
+      return null;
+    }
+  };
+
   useEffect(() => {
     const handler = () => {
       const stored = localStorage.getItem('user');
@@ -28,7 +40,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, getToken }}>
       {children}
     </AuthContext.Provider>
   );

@@ -6,13 +6,15 @@ export declare class UserService {
         id: number;
         name: string;
         email: string;
-        password: string | null;
+        password: string;
+        role: string;
     } | null>;
     getUserByEmail(email: string): Promise<{
         id: number;
         name: string;
         email: string;
-        password: string | null;
+        password: string;
+        role: string;
     } | null>;
     createUser(data: {
         name: string;
@@ -22,12 +24,14 @@ export declare class UserService {
         id: number;
         name: string;
         email: string;
-        password: string | null;
+        password: string;
+        role: string;
     }>;
     getAllUsers(): Promise<{
         id: number;
         name: string;
         email: string;
-        password: string | null;
+        password: string;
+        role: string;
     }[]>;
 }

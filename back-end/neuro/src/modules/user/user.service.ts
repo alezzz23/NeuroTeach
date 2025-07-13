@@ -14,7 +14,8 @@ export class UserService {
   }
 
   async createUser(data: { name: string; email: string; password: string }) {
-    return this.prisma.user.create({ data });
+    // Por defecto, el rol será 'user' si no se especifica
+    return this.prisma.user.create({ data: { ...data, role: data['role'] || 'user' } });
   }
 
   async getAllUsers() {
