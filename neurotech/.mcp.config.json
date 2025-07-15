@@ -11,6 +11,7 @@
     "frontend/neuro/src/modules/history/",
     "frontend/neuro/src/modules/emotion/",
     "frontend/neuro/src/modules/tutor/"
+    
   ],
   "exclude": [
     "node_modules",

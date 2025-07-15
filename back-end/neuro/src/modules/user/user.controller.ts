@@ -12,7 +12,7 @@ export class UserController {
     const user = await this.userService.getUserById(Number(id));
     if (!user) {
       return { error: 'Usuario no encontrado' };
-    }
+  }
     return user;
   }
 }

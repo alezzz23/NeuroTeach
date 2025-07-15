@@ -1,5 +1,53 @@
 # NeuroTeach
 
+## 🚦 Instalación y Puesta en Marcha
+
+### Requisitos previos
+- Node.js >= 18.x y npm
+- PostgreSQL (ejecutándose localmente o en la nube)
+
+### 1. Clona el repositorio
+```bash
+git clone <URL_DEL_REPOSITORIO>
+cd neurotech
+```
+
+### 2. Backend (NestJS)
+```bash
+cd back-end/neuro
+npm install
+```
+
+#### Configura las variables de entorno
+Crea un archivo `.env` en `back-end/neuro/` con el siguiente contenido (ajusta según tu entorno):
+```env
+DATABASE_URL="postgresql://usuario:contraseña@localhost:5432/neuroteach"
+```
+
+#### Inicializa la base de datos
+```bash
+npx prisma migrate deploy
+# o para desarrollo:
+npx prisma migrate dev
+```
+
+#### Inicia el backend
+```bash
+npm run start:dev
+```
+El backend estará disponible en `http://localhost:3001` (o el puerto configurado).
+
+### 3. Frontend (React)
+En otra terminal:
+```bash
+cd ../../frontend
+npm install
+npm start
+```
+El frontend estará disponible en `http://localhost:3000`
+
+---
+
 Plataforma de aprendizaje adaptativo con IA que personaliza contenido educativo en tiempo real usando emociones (análisis facial/webcam) y rendimiento cognitivo.
 
 ## 🚀 Descripción
