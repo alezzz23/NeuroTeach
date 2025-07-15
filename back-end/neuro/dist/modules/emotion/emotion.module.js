@@ -9,12 +9,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmotionModule = void 0;
 const common_1 = require("@nestjs/common");
 const emotion_controller_1 = require("./emotion.controller");
+const emotion_gateway_1 = require("./emotion.gateway");
 let EmotionModule = class EmotionModule {
 };
 exports.EmotionModule = EmotionModule;
 exports.EmotionModule = EmotionModule = __decorate([
     (0, common_1.Module)({
         controllers: [emotion_controller_1.EmotionController],
+        providers: [emotion_gateway_1.EmotionGateway],
     })
 ], EmotionModule);
 //# sourceMappingURL=emotion.module.js.map
