@@ -24,10 +24,14 @@ npm install
 ```
 
 #### Configura las variables de entorno
-Crea un archivo `.env` en `back-end/neuro/` con el siguiente contenido (ajusta según tu entorno):
+
+Ya existe un archivo `.env` en `back-end/neuro/` (o un archivo `.env.example`). Solo edítalo para ajustar los valores según tu entorno:
+
 ```env
 DATABASE_URL="postgresql://usuario:contraseña@localhost:5432/neuroteach"
 ```
+
+No es necesario crear el archivo desde cero, solo personaliza los datos de conexión a tu base de datos PostgreSQL.
 
 #### Inicializa la base de datos (Prisma)
 ```bash
