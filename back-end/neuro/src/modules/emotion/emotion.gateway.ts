@@ -9,6 +9,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import * as jwt from 'jsonwebtoken';
+import axios from 'axios';
 
 @WebSocketGateway({
   cors: {
@@ -42,11 +43,15 @@ export class EmotionGateway implements OnGatewayConnection, OnGatewayDisconnect 
   }
 
   @SubscribeMessage('frame')
-  handleFrame(@MessageBody() data: { image: string }, @ConnectedSocket() client: Socket) {
-    // Aquí puedes poner lógica real de análisis de emociones
-    const emotions = ['feliz', 'frustrado', 'aburrido', 'confundido'];
-    const randomEmotion = emotions[Math.floor(Math.random() * emotions.length)];
-    // Devuelve la emoción al cliente
-    client.emit('emotion', { emotion: randomEmotion });
+  async handleFrame(@MessageBody() data: { image: string }, @ConnectedSocket() client: Socket) {
+    try {
+      const response = await axios.post('http://localhost:5000/analyze', {
+        image: data.image,
+      });
+      const emotion = response.data.emotion;
+      client.emit('emotion', { emotion });
+    } catch (error) {
+      client.emit('emotion', { error: 'Error al analizar la emoción', details: error?.response?.data?.error || error.message });
+    }
   }
 } 

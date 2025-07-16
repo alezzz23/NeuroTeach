@@ -6,5 +6,5 @@ export declare class EmotionGateway implements OnGatewayConnection, OnGatewayDis
     handleDisconnect(client: Socket): void;
     handleFrame(data: {
         image: string;
-    }, client: Socket): void;
+    }, client: Socket): Promise<void>;
 }

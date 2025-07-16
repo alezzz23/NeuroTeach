@@ -16,6 +16,7 @@ exports.EmotionGateway = void 0;
 const websockets_1 = require("@nestjs/websockets");
 const socket_io_1 = require("socket.io");
 const jwt = require("jsonwebtoken");
+const axios_1 = require("axios");
 let EmotionGateway = class EmotionGateway {
     server;
     async handleConnection(client) {
@@ -35,10 +36,17 @@ let EmotionGateway = class EmotionGateway {
     }
     handleDisconnect(client) {
     }
-    handleFrame(data, client) {
-        const emotions = ['feliz', 'frustrado', 'aburrido', 'confundido'];
-        const randomEmotion = emotions[Math.floor(Math.random() * emotions.length)];
-        client.emit('emotion', { emotion: randomEmotion });
+    async handleFrame(data, client) {
+        try {
+            const response = await axios_1.default.post('http://localhost:5000/analyze', {
+                image: data.image,
+            });
+            const emotion = response.data.emotion;
+            client.emit('emotion', { emotion });
+        }
+        catch (error) {
+            client.emit('emotion', { error: 'Error al analizar la emoción', details: error?.response?.data?.error || error.message });
+        }
     }
 };
 exports.EmotionGateway = EmotionGateway;
@@ -52,7 +60,7 @@ __decorate([
     __param(1, (0, websockets_1.ConnectedSocket)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, socket_io_1.Socket]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], EmotionGateway.prototype, "handleFrame", null);
 exports.EmotionGateway = EmotionGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({
