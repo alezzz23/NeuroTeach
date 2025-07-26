@@ -52,27 +52,7 @@ El backend estará disponible en `http://localhost:3000` (o el puerto configurad
 
 #### Requisitos:
 - **Python 3.10** (no usar 3.12+)
-
-#### (Obligatorio) Usa un entorno virtual (venv)
-
-Para aislar las dependencias de Python, crea y activa un entorno virtual antes de instalar los paquetes:
-
-**Windows:**
-```bash
-cd python-emotion-service
-python -m venv venv
-venv\Scripts\activate
-```
-
-**Mac/Linux:**
-```bash
-cd python-emotion-service
-python3 -m venv venv
-source venv/bin/activate
-```
-
-> **Recuerda:** Siempre activa el entorno virtual antes de instalar dependencias o ejecutar el microservicio.
-
+    
 #### Instala las dependencias:
 ```bash
 pip install tensorflow

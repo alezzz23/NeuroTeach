@@ -1,0 +1,529 @@
+/* Estilos generales para ejercicios interactivos */
+.interactive-exercise {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin: 1rem 0;
+  border: 1px solid #e9ecef;
+}
+
+.exercise-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f8f9fa;
+}
+
+.exercise-header h3 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.exercise-description,
+.exercise-instructions {
+  color: #6c757d;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.exercise-meta {
+  margin-top: 1rem;
+}
+
+.exercise-content {
+  margin-bottom: 2rem;
+}
+
+.exercise-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e9ecef;
+}
+
+/* Estilos para Multiple Choice */
+.multiple-choice .options-container {
+  margin: 1.5rem 0;
+}
+
+.multiple-choice .option {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #fff;
+}
+
+.multiple-choice .option:hover {
+  border-color: #007bff;
+  background: #f8f9ff;
+}
+
+.multiple-choice .option.selected {
+  border-color: #007bff;
+  background: #e3f2fd;
+}
+
+.multiple-choice .option.correct {
+  border-color: #28a745;
+  background: #d4edda;
+}
+
+.multiple-choice .option.incorrect {
+  border-color: #dc3545;
+  background: #f8d7da;
+}
+
+.multiple-choice .option-letter {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #6c757d;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.multiple-choice .option.selected .option-letter {
+  background: #007bff;
+}
+
+.multiple-choice .option.correct .option-letter {
+  background: #28a745;
+}
+
+.multiple-choice .option.incorrect .option-letter {
+  background: #dc3545;
+}
+
+.multiple-choice .option-text {
+  flex: 1;
+  font-size: 1.1rem;
+}
+
+.result-feedback {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.result-feedback.correct {
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+}
+
+.result-feedback.incorrect {
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+.result-icon {
+  font-size: 2rem;
+}
+
+.result-message h4 {
+  margin-bottom: 0.5rem;
+}
+
+/* Estilos para Fill in the Blanks */
+.fill-blanks .text-with-blanks {
+  font-size: 1.2rem;
+  line-height: 2;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #007bff;
+}
+
+.blank-container {
+  position: relative;
+  display: inline-block;
+  margin: 0 0.25rem;
+}
+
+.blank-input {
+  border: none;
+  border-bottom: 2px solid #007bff;
+  background: transparent;
+  padding: 0.25rem 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  min-width: 100px;
+  text-align: center;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.blank-input:focus {
+  border-bottom-color: #0056b3;
+  background: rgba(0, 123, 255, 0.1);
+}
+
+.blank-input.correct {
+  border-bottom-color: #28a745;
+  background: rgba(40, 167, 69, 0.1);
+  color: #155724;
+}
+
+.blank-input.incorrect {
+  border-bottom-color: #dc3545;
+  background: rgba(220, 53, 69, 0.1);
+  color: #721c24;
+}
+
+.blank-feedback {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.correct-answer {
+  background: #dc3545;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.hints-section {
+  margin: 2rem 0;
+  padding: 1rem;
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 8px;
+}
+
+.hints-section h5 {
+  color: #856404;
+  margin-bottom: 1rem;
+}
+
+.hints-list {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.hints-list li {
+  color: #856404;
+  margin-bottom: 0.5rem;
+}
+
+.result-summary {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: #e9ecef;
+  border-radius: 8px;
+}
+
+.score-display h4 {
+  color: #495057;
+  margin-bottom: 1rem;
+}
+
+.exercise-feedback {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #d1ecf1;
+  border: 1px solid #bee5eb;
+  border-radius: 6px;
+  color: #0c5460;
+}
+
+/* Estilos para Code Exercise */
+.code-exercise .problem-description {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #17a2b8;
+}
+
+.code-exercise .problem-description h5 {
+  color: #495057;
+  margin-bottom: 1rem;
+}
+
+.examples-section {
+  margin-top: 1.5rem;
+}
+
+.examples-section h6 {
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+.example {
+  background: #e9ecef;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-family: 'Courier New', monospace;
+}
+
+.code-editor-section {
+  margin: 2rem 0;
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.editor-header h6 {
+  color: #495057;
+  margin: 0;
+}
+
+.editor-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.code-editor {
+  width: 100%;
+  font-family: 'Courier New', Monaco, monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  background: #f8f9fa;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.code-editor:focus {
+  border-color: #007bff;
+  background: #fff;
+}
+
+.solution-section {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 8px;
+}
+
+.solution-section h6 {
+  color: #155724;
+  margin-bottom: 1rem;
+}
+
+.solution-code {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 6px;
+  font-family: 'Courier New', Monaco, monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  overflow-x: auto;
+}
+
+.test-section {
+  margin: 2rem 0;
+}
+
+.test-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.test-header h6 {
+  color: #495057;
+  margin: 0;
+}
+
+.test-results {
+  margin: 1rem 0;
+}
+
+.test-result {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid;
+}
+
+.test-result.passed {
+  background: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+.test-result.failed {
+  background: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+.test-status {
+  font-size: 1.2rem;
+  margin-top: 0.2rem;
+}
+
+.test-details {
+  flex: 1;
+}
+
+.error-message {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  font-family: 'Courier New', Monaco, monospace;
+}
+
+.output-section {
+  margin-top: 1.5rem;
+}
+
+.output-section h6 {
+  color: #495057;
+  margin-bottom: 1rem;
+}
+
+.output {
+  background: #212529;
+  color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 6px;
+  font-family: 'Courier New', Monaco, monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.success-message {
+  margin: 2rem 0;
+}
+
+.success-message .alert {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .interactive-exercise {
+    padding: 1rem;
+    margin: 0.5rem 0;
+  }
+  
+  .exercise-actions {
+    flex-direction: column;
+  }
+  
+  .editor-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .test-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .multiple-choice .option {
+    padding: 0.75rem;
+  }
+  
+  .multiple-choice .option-letter {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+  
+  .fill-blanks .text-with-blanks {
+    font-size: 1.1rem;
+    padding: 1rem;
+  }
+  
+  .blank-input {
+    min-width: 80px;
+    font-size: 1rem;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-feedback,
+.result-summary,
+.success-message {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Estados de hover mejorados */
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.option:hover {
+  transform: translateY(-1px);
+}
+
+/* Mejoras de accesibilidad */
+.blank-input:focus,
+.code-editor:focus {
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.btn:focus {
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* Estilos para estados de carga */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}

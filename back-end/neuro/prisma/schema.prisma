@@ -14,20 +14,104 @@ datasource db {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  name     String
-  email    String   @unique
-  password String   
-  role     String   @default("user")
-  histories History[]
+  id              Int      @id @default(autoincrement())
+  name            String
+  email           String   @unique
+  password        String   
+  role            String   @default("user")
+  totalPoints     Int      @default(0)
+  level           Int      @default(1)
+  currentStreak   Int      @default(0)
+  longestStreak   Int      @default(0)
+  lastSessionDate DateTime?
+  achievements    Json     @default("[]")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now()) @updatedAt
+  histories       History[]
+  courseProgress  UserCourseProgress[]
+  lessonProgress  UserLessonProgress[]
 }
 
 model History {
-  id        Int      @id @default(autoincrement())
-  date      DateTime
-  topic     String
-  emotion   String
-  score     Int
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
+  id          Int      @id @default(autoincrement())
+  date        DateTime @default(now())
+  topic       String
+  emotion     String
+  score       Int
+  duration    Int?     // duración en minutos
+  difficulty  String   @default("medium") // easy, medium, hard
+  completed   Boolean  @default(true)
+  pointsEarned Int     @default(0)
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int
+  courseId    Int?
+  lessonId    Int?
+  course      Course?  @relation(fields: [courseId], references: [id])
+  lesson      Lesson?  @relation(fields: [lessonId], references: [id])
+}
+
+model Course {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  category    String   // mathematics, science, language, etc.
+  difficulty  String   @default("beginner") // beginner, intermediate, advanced
+  estimatedHours Int   @default(1)
+  imageUrl    String?
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  lessons     Lesson[]
+  histories   History[]
+  enrollments UserCourseProgress[]
+}
+
+model Lesson {
+  id          Int      @id @default(autoincrement())
+  title       String
+  content     String   // contenido de la lección en markdown o HTML
+  type        String   @default("theory") // theory, exercise, quiz, video, interactive
+  difficulty  String   @default("medium") // easy, medium, hard
+  estimatedMinutes Int @default(15)
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  pointsReward Int     @default(10)
+  interactiveContent Json? // contenido interactivo estructurado (ejercicios, quizzes, etc.)
+  courseId    Int
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  histories   History[]
+  progress    UserLessonProgress[]
+}
+
+model UserCourseProgress {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  courseId    Int
+  isCompleted Boolean  @default(false)
+  progress    Float    @default(0.0) // porcentaje de 0.0 a 1.0
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+  user        User     @relation(fields: [userId], references: [id])
+  course      Course   @relation(fields: [courseId], references: [id])
+  
+  @@unique([userId, courseId])
+}
+
+model UserLessonProgress {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  lessonId    Int
+  isCompleted Boolean  @default(false)
+  score       Int?
+  timeSpent   Int?     // tiempo en minutos
+  attempts    Int      @default(0)
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+  user        User     @relation(fields: [userId], references: [id])
+  lesson      Lesson   @relation(fields: [lessonId], references: [id])
+  
+  @@unique([userId, lessonId])
 }

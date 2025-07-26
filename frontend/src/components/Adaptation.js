@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useAuth } from '../AuthContext';
 
 function Adaptation() {
+  const { getToken } = useAuth();
   const [emotion, setEmotion] = useState('feliz');
   const [performance, setPerformance] = useState(80);
   const [result, setResult] = useState(null);
@@ -12,16 +14,32 @@ function Adaptation() {
     setLoading(true);
     setError(null);
     setResult(null);
+    
+    const token = getToken();
+    if (!token) {
+      setError('No estás autenticado. Por favor, inicia sesión.');
+      setLoading(false);
+      return;
+    }
+    
     try {
       const res = await fetch('http://localhost:3000/adaptation/next-step', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({ emotion, performance: Number(performance) })
       });
+      
+      if (!res.ok) {
+        throw new Error(`Error ${res.status}: ${res.statusText}`);
+      }
+      
       const data = await res.json();
       setResult(data);
     } catch (err) {
-      setError('Error al conectar con el backend');
+      setError(err.message || 'Error al conectar con el backend');
     } finally {
       setLoading(false);
     }
@@ -87,4 +105,4 @@ function Adaptation() {
   );
 }
 
-export default Adaptation; 
+export default Adaptation;

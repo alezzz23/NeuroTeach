@@ -8,13 +8,37 @@ export function AuthProvider({ children }) {
     return stored ? JSON.parse(stored) : null;
   });
 
-  // Nuevo: obtener el token JWT
+  // Obtener el token JWT
   const getToken = () => {
     const stored = localStorage.getItem('user');
     if (!stored) return null;
     try {
       const parsed = JSON.parse(stored);
       return parsed.access_token || null;
+    } catch {
+      return null;
+    }
+  };
+
+  // Obtener el ID del usuario desde el token JWT
+  const getUserId = () => {
+    const token = getToken();
+    if (!token) return null;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.sub || null;
+    } catch {
+      return null;
+    }
+  };
+
+  // Obtener información completa del usuario
+  const getUserData = () => {
+    const stored = localStorage.getItem('user');
+    if (!stored) return null;
+    try {
+      const parsed = JSON.parse(stored);
+      return parsed.user || null;
     } catch {
       return null;
     }
@@ -40,7 +64,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, getToken }}>
+    <AuthContext.Provider value={{ user, login, logout, getToken, getUserId, getUserData }}>
       {children}
     </AuthContext.Provider>
   );
