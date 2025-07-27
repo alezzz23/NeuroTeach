@@ -86,7 +86,7 @@ El frontend estará disponible en `http://localhost:3001`
 ### Ejecutar con Docker
 ```bash
 # Clona el repositorio
-git clone https://github.com/tu-usuario/NeuroTeach.git
+git clone https://github.com/alezzz23/NeuroTeach.git
 cd NeuroTeach
 
 # Construir y ejecutar todos los servicios
@@ -139,6 +139,9 @@ docker-compose -f docker-compose.dev.yml up --build -f
 - Volúmenes montados para cambios en tiempo real
 - Puerto de debugging habilitado para el backend (9229)
 - Variables de entorno optimizadas para desarrollo
+
+### 🚀 Despliegue en Producción
+Para instrucciones detalladas de despliegue en servidores y la nube, consulta la [Guía de Despliegue](./DEPLOYMENT.md).
 
 ---
 
