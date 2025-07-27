@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+  # Base de datos PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    container_name: neuroteach-postgres
+    environment:
+      POSTGRES_DB: neuroteach
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - neuroteach-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Backend NestJS
+  backend:
+    build:
+      context: ./back-end/neuro
+      dockerfile: Dockerfile
+    container_name: neuroteach-backend
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres123@postgres:5432/neuroteach"
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - neuroteach-network
+    volumes:
+      - ./back-end/neuro/uploads:/app/uploads
+    command: >
+      sh -c "npx prisma migrate deploy &&
+             npx prisma db seed &&
+             npm run start:prod"
+
+  # Microservicio Python para análisis de emociones
+  emotion-service:
+    build:
+      context: ./python-emotion-service
+      dockerfile: Dockerfile
+    container_name: neuroteach-emotion-service
+    ports:
+      - "5000:5000"
+    networks:
+      - neuroteach-network
+    environment:
+      FLASK_ENV: production
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend React
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: neuroteach-frontend
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend
+      - emotion-service
+    networks:
+      - neuroteach-network
+    environment:
+      REACT_APP_API_URL: http://localhost:3000
+      REACT_APP_EMOTION_SERVICE_URL: http://localhost:5000
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  neuroteach-network:
+    driver: bridge

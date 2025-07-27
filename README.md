@@ -11,8 +11,8 @@
 
 ### 1. Clona el repositorio
 ```bash
-git clone <URL_DEL_REPOSITORIO>
-cd neurotech
+git clone https://github.com/tu-usuario/NeuroTeach.git
+cd NeuroTeach
 ```
 
 ---
@@ -74,11 +74,77 @@ cd frontend
 npm install
 npm start
 ```
-El frontend estará disponible en `http://localhost:3000`
+El frontend estará disponible en `http://localhost:3001`
 
 ---
 
-## 🧩 Flujo de arranque recomendado
+## 🐳 Instalación con Docker (Recomendado)
+
+### Requisitos previos
+- Docker y Docker Compose instalados
+
+### Ejecutar con Docker
+```bash
+# Clona el repositorio
+git clone https://github.com/tu-usuario/NeuroTeach.git
+cd NeuroTeach
+
+# Construir y ejecutar todos los servicios
+docker-compose up --build
+
+# O ejecutar en segundo plano
+docker-compose up -d --build
+```
+
+### Servicios disponibles
+- **Frontend:** http://localhost:3001
+- **Backend API:** http://localhost:3000
+- **Microservicio de emociones:** http://localhost:5000
+- **PostgreSQL:** localhost:5432
+
+### Comandos útiles de Docker
+```bash
+# Ver logs de todos los servicios
+docker-compose logs -f
+
+# Ver logs de un servicio específico
+docker-compose logs -f backend
+
+# Detener todos los servicios
+docker-compose down
+
+# Detener y eliminar volúmenes
+docker-compose down -v
+
+# Reconstruir un servicio específico
+docker-compose up --build backend
+```
+
+### Desarrollo con Docker
+Para desarrollo con hot reload y debugging:
+
+```bash
+# Usar el archivo de desarrollo
+docker-compose -f docker-compose.dev.yml up --build
+
+# Solo servicios específicos
+docker-compose -f docker-compose.dev.yml up backend frontend
+
+# Con logs en tiempo real
+docker-compose -f docker-compose.dev.yml up --build -f
+```
+
+**Características del entorno de desarrollo:**
+- Hot reload automático para frontend y backend
+- Volúmenes montados para cambios en tiempo real
+- Puerto de debugging habilitado para el backend (9229)
+- Variables de entorno optimizadas para desarrollo
+
+---
+
+## 🧩 Instalación Manual (Alternativa)
+
+### Flujo de arranque recomendado
 1. **Inicia PostgreSQL** (si es local).
 2. **Ejecuta migraciones Prisma** en el backend.
 3. **Arranca el microservicio Python** (`python emotion_service.py`).
@@ -88,10 +154,19 @@ El frontend estará disponible en `http://localhost:3000`
 ---
 
 ## 📝 Notas importantes
+
+### Con Docker:
+- Todos los servicios se configuran automáticamente con las dependencias correctas.
+- La base de datos PostgreSQL se inicializa automáticamente.
+- Las migraciones de Prisma se ejecutan automáticamente al iniciar el backend.
+- Los puertos están mapeados para evitar conflictos.
+
+### Instalación manual:
 - Si tienes problemas con TensorFlow/DeepFace, revisa la versión de Python (usa 3.10).
 - Si algún puerto está ocupado, puedes cambiarlo en la configuración del backend o frontend.
 - El backend se comunica con el microservicio Python por HTTP (`http://localhost:5000/analyze`).
 - El frontend se comunica con el backend por REST y WebSocket (`http://localhost:3000`).
+- El frontend corre en el puerto 3001 para evitar conflictos con el backend.
 
 ---
 
@@ -117,9 +192,9 @@ NeuroTeach es una plataforma innovadora que utiliza affective computing y modelo
 ## 📁 Estructura Propuesta
 
 ```
-neuroteach/
+NeuroTeach/
 │
-├── backend/
+├── back-end/
 │   ├── src/
 │   │   ├── modules/
 │   │   │   ├── emotion/
@@ -136,13 +211,13 @@ neuroteach/
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── WebcamCapture.tsx
-│   │   │   ├── ChatTutor.tsx
-│   │   │   ├── ProgressDashboard.tsx
-│   │   │   └── ThreeDAnimation.tsx
+│   │   │   ├── WebcamCapture.js
+│   │   │   ├── ChatTutor.js
+│   │   │   ├── ProgressDashboard.js
+│   │   │   └── ThreeDAnimation.js
 │   │   ├── pages/
-│   │   ├── App.tsx
-│   │   └── index.tsx
+│   │   ├── App.js
+│   │   └── index.js
 │   ├── public/
 │   ├── package.json
 │   └── README.md
