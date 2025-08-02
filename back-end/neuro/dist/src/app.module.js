@@ -18,6 +18,7 @@ const history_module_1 = require("./modules/history/history.module");
 const adaptation_module_1 = require("./modules/adaptation/adaptation.module");
 const analytics_module_1 = require("./modules/analytics/analytics.module");
 const gamification_module_1 = require("./modules/gamification/gamification.module");
+const virtual_labs_module_1 = require("./modules/virtual-labs/virtual-labs.module");
 const prisma_module_1 = require("./prisma/prisma.module");
 const auth_module_1 = require("./modules/auth/auth.module");
 let AppModule = class AppModule {
@@ -34,6 +35,7 @@ exports.AppModule = AppModule = __decorate([
             adaptation_module_1.AdaptationModule,
             analytics_module_1.AnalyticsModule,
             gamification_module_1.GamificationModule,
+            virtual_labs_module_1.VirtualLabsModule,
             prisma_module_1.PrismaModule,
             auth_module_1.AuthModule,
         ],

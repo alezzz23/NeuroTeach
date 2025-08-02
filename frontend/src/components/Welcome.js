@@ -87,7 +87,16 @@ function Welcome() {
               <div className="card-body text-center">
                 <i className="fas fa-lightbulb fa-2x text-warning mb-3"></i>
                 <h6>Adaptación</h6>
-                <p className="small">Recibe recomendaciones personalizadas</p>
+                <p className="small">Contenido personalizado según tu progreso</p>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="card h-100 border-danger">
+              <div className="card-body text-center">
+                <i className="fas fa-flask fa-2x text-danger mb-3"></i>
+                <h6>Laboratorios Virtuales</h6>
+                <p className="small">Practica con entornos reales de programación</p>
               </div>
             </div>
           </div>

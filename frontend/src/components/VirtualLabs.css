@@ -1,0 +1,167 @@
+/* Estilos para el componente VirtualLabs */
+
+.lab-card {
+  transition: all 0.3s ease;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.lab-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: #007bff;
+}
+
+.lab-card .card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  padding: 0.75rem 1rem;
+}
+
+.lab-card .card-title {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.lab-card .card-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.lab-card .badge {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.lab-card .list-unstyled li {
+  color: #6c757d;
+}
+
+.lab-card .card-footer {
+  background-color: #fff;
+  border-top: 1px solid #e9ecef;
+  padding: 1rem;
+}
+
+/* Animaciones para los filtros */
+.btn {
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Estilos para las tecnologías */
+.badge.bg-light {
+  border: 1px solid #dee2e6;
+  color: #495057 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .lab-card {
+    margin-bottom: 1rem;
+  }
+  
+  .d-flex.flex-wrap.gap-2 {
+    gap: 0.5rem !important;
+  }
+  
+  .btn {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* Loading spinner personalizado */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Estilos para el header */
+.container-fluid h2 {
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+/* Hover effects para botones de categoría */
+.btn-outline-primary:hover {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+}
+
+/* Estilos para objetivos */
+.list-unstyled .fas.fa-check-circle {
+  color: #28a745;
+}
+
+.list-unstyled .fas.fa-plus {
+  color: #6c757d;
+}
+
+/* Estilos para rating */
+.fas.fa-star {
+  color: #ffc107;
+}
+
+/* Card hover animation */
+@keyframes cardHover {
+  from {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  to {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.lab-card:hover {
+  animation: cardHover 0.3s ease forwards;
+}
+
+/* Estilos para el estado disabled */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Mejoras visuales para badges */
+.badge.bg-success {
+  background-color: #28a745 !important;
+}
+
+.badge.bg-warning {
+  background-color: #ffc107 !important;
+  color: #212529 !important;
+}
+
+.badge.bg-danger {
+  background-color: #dc3545 !important;
+}
+
+.badge.bg-secondary {
+  background-color: #6c757d !important;
+}
+
+/* Estilos para el mensaje de no hay laboratorios */
+.text-center.py-5 {
+  padding: 3rem 1rem !important;
+}
+
+.text-center.py-5 .fas {
+  opacity: 0.5;
+}
+
+/* Transiciones suaves para todos los elementos interactivos */
+* {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}

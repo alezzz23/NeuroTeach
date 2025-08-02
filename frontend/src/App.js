@@ -4,6 +4,8 @@ import WebcamMock from './components/WebcamMock';
 import ChatTutorIA from './components/ChatTutorIA';
 import Dashboard from './components/Dashboard';
 import Adaptation from './components/Adaptation';
+import VirtualLabs from './components/VirtualLabs';
+import LabEnvironment from './components/LabEnvironment';
 
 import Login from './components/Login';
 import Register from './components/Register';
@@ -77,6 +79,12 @@ function AppRoutes() {
                   </Link>
                 </li>
                 <li className="nav-item">
+                  <Link className="nav-link" to="/virtual-labs">
+                    <i className="fas fa-flask me-1"></i>
+                    Laboratorios Virtuales
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <Link className="nav-link" to="/chat">
                     <i className="fas fa-robot me-1"></i>
                     Chat IA
@@ -130,6 +138,8 @@ function AppRoutes() {
         <Route path="/chat" element={<RequireAuth><ChatTutorIA /></RequireAuth>} />
         <Route path="/dashboard" element={<RequireAuthWithWelcome><Dashboard /></RequireAuthWithWelcome>} />
         <Route path="/adaptation" element={<RequireAuth><Adaptation /></RequireAuth>} />
+        <Route path="/virtual-labs" element={<RequireAuth><VirtualLabs /></RequireAuth>} />
+        <Route path="/virtual-labs/:labId" element={<RequireAuth><LabEnvironment /></RequireAuth>} />
       </Routes>
     </>
   );
