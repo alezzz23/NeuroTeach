@@ -30,6 +30,8 @@ services:
     environment:
       DATABASE_URL: "postgresql://postgres:postgres123@postgres:5432/neuroteach"
       NODE_ENV: production
+      JWT_SECRET: "C$V00x4F5C[x"
+      JWT_EXPIRES_IN: "1d"
     ports:
       - "3000:3000"
     depends_on:

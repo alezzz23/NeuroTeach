@@ -11,7 +11,7 @@ import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { GamificationModule } from './modules/gamification/gamification.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { CourseModule } from './course/course.module';
+
 
 @Module({
   imports: [
@@ -25,7 +25,7 @@ import { CourseModule } from './course/course.module';
     GamificationModule,
     PrismaModule,
     AuthModule,
-    CourseModule,
+
   ],
   controllers: [AppController],
   providers: [AppService],

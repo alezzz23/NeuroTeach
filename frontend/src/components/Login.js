@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
+import { API_BASE_URL } from '../config';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -13,7 +14,7 @@ export default function Login() {
     e.preventDefault();
     setError('');
     try {
-      const res = await fetch('http://localhost:3000/auth/login', {
+      const res = await fetch(`${API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -79,4 +80,4 @@ export default function Login() {
       </div>
     </div>
   );
-} 
+}

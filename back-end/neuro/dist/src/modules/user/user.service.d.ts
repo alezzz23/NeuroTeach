@@ -4,8 +4,6 @@ export declare class UserService {
     constructor(prisma: PrismaService);
     getUserById(id: number): Promise<{
         id: number;
-        createdAt: Date;
-        updatedAt: Date;
         name: string;
         email: string;
         password: string;
@@ -16,11 +14,11 @@ export declare class UserService {
         longestStreak: number;
         lastSessionDate: Date | null;
         achievements: import("@prisma/client/runtime/library").JsonValue;
+        createdAt: Date;
+        updatedAt: Date;
     } | null>;
     getUserByEmail(email: string): Promise<{
         id: number;
-        createdAt: Date;
-        updatedAt: Date;
         name: string;
         email: string;
         password: string;
@@ -31,6 +29,8 @@ export declare class UserService {
         longestStreak: number;
         lastSessionDate: Date | null;
         achievements: import("@prisma/client/runtime/library").JsonValue;
+        createdAt: Date;
+        updatedAt: Date;
     } | null>;
     createUser(data: {
         name: string;
@@ -38,8 +38,6 @@ export declare class UserService {
         password: string;
     }): Promise<{
         id: number;
-        createdAt: Date;
-        updatedAt: Date;
         name: string;
         email: string;
         password: string;
@@ -50,11 +48,11 @@ export declare class UserService {
         longestStreak: number;
         lastSessionDate: Date | null;
         achievements: import("@prisma/client/runtime/library").JsonValue;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     getAllUsers(): Promise<{
         id: number;
-        createdAt: Date;
-        updatedAt: Date;
         name: string;
         email: string;
         password: string;
@@ -65,5 +63,7 @@ export declare class UserService {
         longestStreak: number;
         lastSessionDate: Date | null;
         achievements: import("@prisma/client/runtime/library").JsonValue;
+        createdAt: Date;
+        updatedAt: Date;
     }[]>;
 }

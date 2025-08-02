@@ -6,6 +6,54 @@
   min-height: 100vh;
 }
 
+/* Dashboard Navigation Tabs */
+.dashboard-tabs {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 8px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dashboard-tabs .nav-link {
+  color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  background: transparent;
+  margin: 0 4px;
+}
+
+.dashboard-tabs .nav-link:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.dashboard-tabs .nav-link.active {
+  color: #667eea;
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.dashboard-tabs .nav-link i {
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-tabs .nav-link {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+  
+  .dashboard-tabs .nav-link span {
+    display: none;
+  }
+}
+
 /* Modern Input Styling */
 .input-group-text {
   background-color: #667eea;

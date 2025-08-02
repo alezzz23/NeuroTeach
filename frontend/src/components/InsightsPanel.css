@@ -1,0 +1,470 @@
+.insights-panel {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.insights-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.insights-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.insights-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tab-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.tab-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.tab-button.active {
+  background: white;
+  color: #667eea;
+  border-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.insights-content {
+  padding: 1.5rem;
+}
+
+.section-subtitle {
+  color: #495057;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+/* Correlations Section */
+.correlations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.correlation-card {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  border-left: 4px solid #6c757d;
+  transition: all 0.3s ease;
+}
+
+.correlation-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.correlation-card.success {
+  border-left-color: #28a745;
+  background: linear-gradient(135deg, #d4edda 0%, #f8f9fa 100%);
+}
+
+.correlation-card.warning {
+  border-left-color: #ffc107;
+  background: linear-gradient(135deg, #fff3cd 0%, #f8f9fa 100%);
+}
+
+.correlation-card.danger {
+  border-left-color: #dc3545;
+  background: linear-gradient(135deg, #f8d7da 0%, #f8f9fa 100%);
+}
+
+.correlation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.emotion-name {
+  font-weight: 600;
+  text-transform: capitalize;
+  font-size: 1rem;
+}
+
+.correlation-details {
+  margin-bottom: 0.75rem;
+}
+
+.correlation-impact {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.impact-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Trends Section */
+.trends-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.trend-card {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.25rem;
+  border: 1px solid #e9ecef;
+  border-left: 4px solid #6c757d;
+  transition: all 0.3s ease;
+}
+
+.trend-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.trend-card.border-success {
+  border-left-color: #28a745;
+}
+
+.trend-card.border-warning {
+  border-left-color: #ffc107;
+}
+
+.trend-card.border-danger {
+  border-left-color: #dc3545;
+}
+
+.trend-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.trend-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.trend-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.trend-description {
+  margin: 0;
+  color: #6c757d;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+/* Recommendations Section */
+.recommendations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.recommendation-card {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.25rem;
+  border: 1px solid #e9ecef;
+  display: flex;
+  gap: 1rem;
+  transition: all 0.3s ease;
+}
+
+.recommendation-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recommendation-card.priority-high {
+  border-left: 4px solid #dc3545;
+  background: linear-gradient(135deg, #f8d7da 0%, #f8f9fa 100%);
+}
+
+.recommendation-card.priority-medium {
+  border-left: 4px solid #ffc107;
+  background: linear-gradient(135deg, #fff3cd 0%, #f8f9fa 100%);
+}
+
+.recommendation-card.priority-low {
+  border-left: 4px solid #28a745;
+  background: linear-gradient(135deg, #d4edda 0%, #f8f9fa 100%);
+}
+
+.recommendation-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.recommendation-icon i {
+  font-size: 1.25rem;
+}
+
+.recommendation-content {
+  flex: 1;
+}
+
+.recommendation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.recommendation-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.priority-badge {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.recommendation-description {
+  margin: 0 0 0.75rem 0;
+  color: #6c757d;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.recommendation-action {
+  background: rgba(255, 193, 7, 0.1);
+  border-radius: 6px;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+/* Predictions Section */
+.predictions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+}
+
+.prediction-card {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.25rem;
+  border: 1px solid #e9ecef;
+  border-left: 4px solid #6c757d;
+  transition: all 0.3s ease;
+}
+
+.prediction-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.prediction-card.border-success {
+  border-left-color: #28a745;
+}
+
+.prediction-card.border-warning {
+  border-left-color: #ffc107;
+}
+
+.prediction-card.border-danger {
+  border-left-color: #dc3545;
+}
+
+.prediction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.prediction-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.confidence-badge {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+}
+
+.prediction-content {
+  text-align: center;
+}
+
+.prediction-description {
+  margin: 0 0 0.75rem 0;
+  color: #6c757d;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.prediction-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+/* Loading and Empty States */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .insights-header {
+    padding: 1rem;
+  }
+  
+  .insights-title {
+    font-size: 1.25rem;
+  }
+  
+  .insights-tabs {
+    justify-content: center;
+  }
+  
+  .tab-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .insights-content {
+    padding: 1rem;
+  }
+  
+  .correlations-grid,
+  .trends-grid,
+  .predictions-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .recommendation-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .recommendation-icon {
+    align-self: center;
+  }
+  
+  .recommendation-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .insights-tabs {
+    flex-direction: column;
+  }
+  
+  .tab-button {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .correlation-header,
+  .trend-header,
+  .prediction-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  
+  .prediction-value {
+    font-size: 1.5rem;
+  }
+}
+
+/* Animation for loading */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.loading-pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Hover effects */
+.correlation-card:hover .emotion-name,
+.trend-card:hover .trend-title,
+.recommendation-card:hover .recommendation-title,
+.prediction-card:hover .prediction-title {
+  color: #667eea;
+  transition: color 0.3s ease;
+}
+
+/* Badge animations */
+.badge {
+  transition: all 0.3s ease;
+}
+
+.badge:hover {
+  transform: scale(1.05);
+}
+
+/* Icon animations */
+.recommendation-icon:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+.recommendation-icon:hover i {
+  animation: pulse 1s ease-in-out infinite;
+}

@@ -11,7 +11,7 @@
 
 ### 1. Clona el repositorio
 ```bash
-git clone https://github.com/tu-usuario/NeuroTeach.git
+git clone https://github.com/alezzz23/NeuroTeach.git
 cd NeuroTeach
 ```
 

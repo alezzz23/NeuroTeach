@@ -11,6 +11,17 @@ function GamificationPanel({ gamification }) {
     );
   }
 
+  // Valores por defecto para evitar undefined
+  const safeGamification = {
+    level: 1,
+    progressToNextLevel: 0,
+    pointsToNextLevel: 100,
+    totalPoints: 0,
+    currentStreak: 0,
+    achievements: [],
+    ...gamification
+  };
+
   const achievements = [
     {
       id: 'FIRST_SESSION',
@@ -49,7 +60,7 @@ function GamificationPanel({ gamification }) {
     },
   ];
 
-  const progressPercentage = (gamification.progressToNextLevel * 100).toFixed(1);
+  const progressPercentage = (safeGamification.progressToNextLevel * 100).toFixed(1);
 
   return (
     <div className="row g-3">
@@ -59,7 +70,7 @@ function GamificationPanel({ gamification }) {
           <div className="card-body text-center">
             <div className="level-badge mb-3">
               <i className="fas fa-trophy level-icon"></i>
-              <h2 className="level-number">Nivel {gamification.level}</h2>
+              <h2 className="level-number">Nivel {safeGamification.level}</h2>
             </div>
             <div className="progress-container mb-3">
               <div className="progress level-progress">
@@ -75,18 +86,18 @@ function GamificationPanel({ gamification }) {
                 </div>
               </div>
               <small className="text-muted">
-                {gamification.pointsToNextLevel} puntos para el siguiente nivel
+                {safeGamification.pointsToNextLevel} puntos para el siguiente nivel
               </small>
             </div>
             <div className="stats-row">
               <div className="stat-item">
                 <i className="fas fa-star text-warning"></i>
-                <span className="stat-value">{gamification.totalPoints}</span>
+                <span className="stat-value">{safeGamification.totalPoints}</span>
                 <span className="stat-label">Puntos</span>
               </div>
               <div className="stat-item">
                 <i className="fas fa-fire text-danger"></i>
-                <span className="stat-value">{gamification.currentStreak}</span>
+                <span className="stat-value">{safeGamification.currentStreak}</span>
                 <span className="stat-label">Racha</span>
               </div>
             </div>
@@ -100,13 +111,13 @@ function GamificationPanel({ gamification }) {
           <div className="card-header">
             <h5 className="card-title mb-0">
               <i className="fas fa-medal me-2"></i>
-              Logros ({gamification.achievements?.length || 0}/{achievements.length})
+              Logros ({safeGamification.achievements?.length || 0}/{achievements.length})
             </h5>
           </div>
           <div className="card-body">
             <div className="achievements-grid">
               {achievements.map((achievement) => {
-                const isUnlocked = gamification.achievements?.includes(achievement.id) || false;
+                const isUnlocked = safeGamification.achievements?.includes(achievement.id) || false;
                 return (
                   <div 
                     key={achievement.id} 

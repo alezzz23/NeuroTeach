@@ -6,17 +6,15 @@ export declare class HistoryService {
     constructor(prisma: PrismaService, gamificationService: GamificationService);
     getHistoryByUserId(userId: number): Promise<{
         id: number;
-        difficulty: string;
         emotion: string;
         date: Date;
         topic: string;
         score: number;
         duration: number | null;
+        difficulty: string;
         completed: boolean;
         pointsEarned: number;
         userId: number;
-        courseId: number | null;
-        lessonId: number | null;
     }[]>;
     addHistory(data: {
         userId: number;
@@ -28,16 +26,14 @@ export declare class HistoryService {
         difficulty?: string;
     }): Promise<{
         id: number;
-        difficulty: string;
         emotion: string;
         date: Date;
         topic: string;
         score: number;
         duration: number | null;
+        difficulty: string;
         completed: boolean;
         pointsEarned: number;
         userId: number;
-        courseId: number | null;
-        lessonId: number | null;
     }>;
 }

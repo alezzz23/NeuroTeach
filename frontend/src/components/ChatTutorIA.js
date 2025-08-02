@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-
 import { useAuth } from '../AuthContext';
+import { API_BASE_URL } from '../config';
 
 function ChatTutorIA() {
   const [question, setQuestion] = useState('');
@@ -17,7 +17,7 @@ function ChatTutorIA() {
     setResponse(null);
     try {
       const token = getToken();
-      const res = await fetch('http://localhost:3000/tutor/ask', {
+      const res = await fetch(`${API_BASE_URL}/tutor/ask`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -94,4 +94,4 @@ function ChatTutorIA() {
   );
 }
 
-export default ChatTutorIA; 
+export default ChatTutorIA;

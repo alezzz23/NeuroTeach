@@ -47,12 +47,24 @@ function AnalyticsCharts({ emotionData, progressData }) {
     );
   }
 
+  // Valores por defecto para evitar undefined
+  const safeEmotionData = {
+    distribution: {},
+    ...emotionData
+  };
+
+  const safeProgressData = {
+    weeklyProgress: [],
+    topicProgress: {},
+    ...progressData
+  };
+
   // Configuración del gráfico de emociones
   const emotionChartData = {
-    labels: Object.keys(emotionData.distribution || {}),
+    labels: Object.keys(safeEmotionData.distribution || {}),
     datasets: [
       {
-        data: Object.values(emotionData.distribution || {}),
+        data: Object.values(safeEmotionData.distribution || {}),
         backgroundColor: [
           '#FF6384',
           '#36A2EB',
@@ -86,18 +98,18 @@ function AnalyticsCharts({ emotionData, progressData }) {
 
   // Configuración del gráfico de progreso semanal
   const progressChartData = {
-    labels: (progressData.weeklyProgress || []).map(item => item.week),
+    labels: (safeProgressData.weeklyProgress || []).map(item => item.week),
     datasets: [
       {
         label: 'Sesiones',
-        data: (progressData.weeklyProgress || []).map(item => item.sessions),
+        data: (safeProgressData.weeklyProgress || []).map(item => item.sessions),
         backgroundColor: 'rgba(54, 162, 235, 0.5)',
         borderColor: 'rgba(54, 162, 235, 1)',
         borderWidth: 2,
       },
       {
         label: 'Puntuación Promedio',
-        data: (progressData.weeklyProgress || []).map(item => item.averageScore),
+        data: (safeProgressData.weeklyProgress || []).map(item => item.averageScore),
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
         borderColor: 'rgba(255, 99, 132, 1)',
         borderWidth: 2,
@@ -159,11 +171,11 @@ function AnalyticsCharts({ emotionData, progressData }) {
 
   // Configuración del gráfico de progreso por tema
   const topicChartData = {
-    labels: (progressData.topicProgress || []).map(item => item.topic),
+    labels: Object.keys(safeProgressData.topicProgress || {}),
     datasets: [
       {
         label: 'Puntuación Promedio',
-        data: (progressData.topicProgress || []).map(item => item.averageScore),
+        data: Object.values(safeProgressData.topicProgress || {}).map(item => item.averageScore || 0),
         backgroundColor: 'rgba(75, 192, 192, 0.6)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 2,

@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Webcam from 'react-webcam';
 import { useAuth } from '../AuthContext';
 import { io } from 'socket.io-client';
+import { API_BASE_URL } from '../config';
 
 function WebcamMock() {
   const [emotion, setEmotion] = useState(null);
@@ -15,7 +16,7 @@ function WebcamMock() {
     if (!streaming) return;
     const token = getToken();
     // Conexión WebSocket
-    socketRef.current = io('http://localhost:3000/emotion', {
+    socketRef.current = io(`${API_BASE_URL}/emotion`, {
       auth: { token },
       transports: ['websocket'],
     });
@@ -106,4 +107,4 @@ function WebcamMock() {
   );
 }
 
-export default WebcamMock; 
+export default WebcamMock;

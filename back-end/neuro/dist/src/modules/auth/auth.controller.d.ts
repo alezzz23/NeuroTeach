@@ -8,8 +8,6 @@ export declare class AuthController {
         password: string;
     }): Promise<{
         id: number;
-        createdAt: Date;
-        updatedAt: Date;
         name: string;
         email: string;
         password: string;
@@ -20,6 +18,8 @@ export declare class AuthController {
         longestStreak: number;
         lastSessionDate: Date | null;
         achievements: import("@prisma/client/runtime/library").JsonValue;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     login(body: {
         email: string;
@@ -28,8 +28,6 @@ export declare class AuthController {
         access_token: string;
         user: {
             id: number;
-            createdAt: Date;
-            updatedAt: Date;
             name: string;
             email: string;
             role: string;
@@ -39,6 +37,8 @@ export declare class AuthController {
             longestStreak: number;
             lastSessionDate: Date | null;
             achievements: import("@prisma/client/runtime/library").JsonValue;
+            createdAt: Date;
+            updatedAt: Date;
         };
     }>;
 }

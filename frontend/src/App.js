@@ -4,8 +4,7 @@ import WebcamMock from './components/WebcamMock';
 import ChatTutorIA from './components/ChatTutorIA';
 import Dashboard from './components/Dashboard';
 import Adaptation from './components/Adaptation';
-import Courses from './components/Courses';
-import Lesson from './components/Lesson';
+
 import Login from './components/Login';
 import Register from './components/Register';
 import Logout from './components/Logout';
@@ -70,12 +69,7 @@ function AppRoutes() {
                     Dashboard
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/courses">
-                    <i className="fas fa-book me-1"></i>
-                    Cursos
-                  </Link>
-                </li>
+
                 <li className="nav-item">
                   <Link className="nav-link" to="/webcam">
                     <i className="fas fa-video me-1"></i>
@@ -131,8 +125,7 @@ function AppRoutes() {
         <Route path="/register" element={!user ? <Register /> : <Navigate to="/dashboard" replace />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/welcome" element={<RequireAuth><Welcome /></RequireAuth>} />
-        <Route path="/courses" element={<RequireAuthWithWelcome><Courses /></RequireAuthWithWelcome>} />
-        <Route path="/courses/:courseId/lesson/:lessonId" element={<RequireAuthWithWelcome><Lesson /></RequireAuthWithWelcome>} />
+
         <Route path="/webcam" element={<RequireAuth><WebcamMock /></RequireAuth>} />
         <Route path="/chat" element={<RequireAuth><ChatTutorIA /></RequireAuth>} />
         <Route path="/dashboard" element={<RequireAuthWithWelcome><Dashboard /></RequireAuthWithWelcome>} />

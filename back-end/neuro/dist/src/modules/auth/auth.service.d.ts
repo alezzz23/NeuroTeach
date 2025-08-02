@@ -6,8 +6,6 @@ export declare class AuthService {
     constructor(userService: UserService, jwtService: JwtService);
     register(name: string, email: string, password: string): Promise<{
         id: number;
-        createdAt: Date;
-        updatedAt: Date;
         name: string;
         email: string;
         password: string;
@@ -18,13 +16,13 @@ export declare class AuthService {
         longestStreak: number;
         lastSessionDate: Date | null;
         achievements: import("@prisma/client/runtime/library").JsonValue;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     login(email: string, password: string): Promise<{
         access_token: string;
         user: {
             id: number;
-            createdAt: Date;
-            updatedAt: Date;
             name: string;
             email: string;
             role: string;
@@ -34,6 +32,8 @@ export declare class AuthService {
             longestStreak: number;
             lastSessionDate: Date | null;
             achievements: import("@prisma/client/runtime/library").JsonValue;
+            createdAt: Date;
+            updatedAt: Date;
         };
     }>;
 }

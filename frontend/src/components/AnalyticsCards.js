@@ -17,34 +17,50 @@ function AnalyticsCards({ analytics, gamification }) {
     );
   }
 
+  // Valores por defecto para evitar undefined
+  const safeAnalytics = {
+    totalSessions: 0,
+    sessionsThisWeek: 0,
+    averageScore: 0,
+    ...analytics
+  };
+
+  const safeGamification = {
+    totalPoints: 0,
+    level: 1,
+    currentStreak: 0,
+    longestStreak: 0,
+    ...gamification
+  };
+
   const cards = [
     {
       title: 'Sesiones Totales',
-      value: analytics.totalSessions,
+      value: safeAnalytics.totalSessions || 0,
       icon: 'fas fa-graduation-cap',
       color: 'primary',
-      subtitle: `${analytics.sessionsThisWeek} esta semana`,
+      subtitle: `${safeAnalytics.sessionsThisWeek || 0} esta semana`,
     },
     {
       title: 'Puntuación Promedio',
-      value: `${analytics.averageScore}%`,
+      value: `${safeAnalytics.averageScore || 0}%`,
       icon: 'fas fa-chart-line',
       color: 'success',
       subtitle: 'Rendimiento general',
     },
     {
       title: 'Puntos Totales',
-      value: gamification.totalPoints,
+      value: safeGamification.totalPoints || 0,
       icon: 'fas fa-star',
       color: 'warning',
-      subtitle: `Nivel ${gamification.level}`,
+      subtitle: `Nivel ${safeGamification.level || 1}`,
     },
     {
       title: 'Racha Actual',
-      value: `${gamification.currentStreak} días`,
+      value: `${safeGamification.currentStreak || 0} días`,
       icon: 'fas fa-fire',
       color: 'danger',
-      subtitle: `Máxima: ${gamification.longestStreak} días`,
+      subtitle: `Máxima: ${safeGamification.longestStreak || 0} días`,
     },
   ];
 

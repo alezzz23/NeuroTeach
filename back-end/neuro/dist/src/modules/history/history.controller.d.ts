@@ -6,17 +6,15 @@ export declare class HistoryController {
         userId: string;
         history: {
             id: number;
-            difficulty: string;
             emotion: string;
             date: Date;
             topic: string;
             score: number;
             duration: number | null;
+            difficulty: string;
             completed: boolean;
             pointsEarned: number;
             userId: number;
-            courseId: number | null;
-            lessonId: number | null;
         }[];
     }>;
     addHistory(data: {
@@ -27,16 +25,14 @@ export declare class HistoryController {
         score: number;
     }): Promise<{
         id: number;
-        difficulty: string;
         emotion: string;
         date: Date;
         topic: string;
         score: number;
         duration: number | null;
+        difficulty: string;
         completed: boolean;
         pointsEarned: number;
         userId: number;
-        courseId: number | null;
-        lessonId: number | null;
     }>;
 }

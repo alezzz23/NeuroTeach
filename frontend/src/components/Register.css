@@ -1,0 +1,80 @@
+  /* Estilos para el componente Register */
+.register-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.register-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.register-input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.register-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.register-button {
+  padding: 0.75rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.register-button:hover {
+  background-color: #0056b3;
+}
+
+.register-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.register-error {
+  color: #dc3545;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.register-success {
+  color: #28a745;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.register-link a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
