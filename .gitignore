@@ -31,3 +31,21 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Venv
+
+venv/
+.venv
+
+# Python virtualenvs and caches
+python-emotion-service/venv/
+env/
+ENV/
+venv/*
+*.pyc
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments named 'venv' in any subfolder
+**/venv/
