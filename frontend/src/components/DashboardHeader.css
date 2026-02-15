@@ -1,0 +1,32 @@
+.dashboard-header {
+  padding: 1.25rem;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.05);
+  margin-bottom: 1rem;
+}
+
+.dashboard-title {
+  font-size: 1.75rem;
+  font-weight: 750;
+  color: #0b0f14;
+  margin: 0;
+}
+
+.dashboard-title i {
+  color: #00a82d;
+}
+
+.dashboard-subtitle {
+  color: #6c757d;
+  margin: 0.5rem 0 0;
+}
+
+.user-info-card {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  color: #0b0f14;
+}

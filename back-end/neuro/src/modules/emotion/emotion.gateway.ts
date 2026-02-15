@@ -45,7 +45,7 @@ export class EmotionGateway implements OnGatewayConnection, OnGatewayDisconnect 
   @SubscribeMessage('frame')
   async handleFrame(@MessageBody() data: { image: string }, @ConnectedSocket() client: Socket) {
     try {
-      const response = await axios.post('http://localhost:5000/analyze', {
+      const response = await axios.post(`${process.env.EMOTION_SERVICE_URL || 'http://localhost:5000'}/analyze`, {
         image: data.image,
       });
       const emotion = response.data.emotion;

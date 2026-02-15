@@ -9,7 +9,6 @@ import { HistoryModule } from './modules/history/history.module';
 import { AdaptationModule } from './modules/adaptation/adaptation.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { GamificationModule } from './modules/gamification/gamification.module';
-import { VirtualLabsModule } from './modules/virtual-labs/virtual-labs.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './modules/auth/auth.module';
 
@@ -24,7 +23,6 @@ import { AuthModule } from './modules/auth/auth.module';
     AdaptationModule,
     AnalyticsModule,
     GamificationModule,
-    VirtualLabsModule,
     PrismaModule,
     AuthModule,
 

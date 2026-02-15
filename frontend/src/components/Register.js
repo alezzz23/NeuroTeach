@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../AuthContext';
+import { useNavigate, Link } from 'react-router-dom';
 import { API_BASE_URL } from '../config';
 import './Register.css';
 
@@ -31,21 +30,26 @@ export default function Register() {
   };
 
   return (
-    <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light">
-      <div className="card shadow p-4" style={{ maxWidth: 400, width: '100%' }}>
-        <div className="text-center mb-4">
-          <i className="fas fa-user-plus fa-3x text-primary mb-2"></i>
-          <h2 className="mb-0">Registro</h2>
+    <div className="register-container">
+      <div className="register-card">
+        <div className="register-header">
+          <div className="register-brand">
+            <img src="/logo.png" alt="NeuroTeach" className="register-logo" />
+            <span className="register-brand-name">NeuroTeach</span>
+          </div>
+          <h2>Crea tu cuenta</h2>
+          <p>Empieza gratis y accede al dashboard.</p>
         </div>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="registerName" className="form-label">Nombre</label>
-            <div className="input-group">
-              <span className="input-group-text"><i className="fas fa-user"></i></span>
+
+        <form onSubmit={handleSubmit} className="register-form">
+          <div className="register-field">
+            <label htmlFor="registerName">Nombre</label>
+            <div className="register-input-wrap">
+              <i className="fas fa-user register-input-icon"></i>
               <input
                 id="registerName"
                 type="text"
-                className="form-control"
+                className="register-input"
                 value={name}
                 onChange={e => setName(e.target.value)}
                 required
@@ -53,44 +57,62 @@ export default function Register() {
               />
             </div>
           </div>
-          <div className="mb-3">
-            <label htmlFor="registerEmail" className="form-label">Email</label>
-            <div className="input-group">
-              <span className="input-group-text"><i className="fas fa-envelope"></i></span>
+
+          <div className="register-field">
+            <label htmlFor="registerEmail">Email</label>
+            <div className="register-input-wrap">
+              <i className="fas fa-envelope register-input-icon"></i>
               <input
                 id="registerEmail"
                 type="email"
-                className="form-control"
+                className="register-input"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
+                placeholder="tu@email.com"
                 required
               />
             </div>
           </div>
-          <div className="mb-3">
-            <label htmlFor="registerPassword" className="form-label">Contraseña</label>
-            <div className="input-group">
-              <span className="input-group-text"><i className="fas fa-lock"></i></span>
+
+          <div className="register-field">
+            <label htmlFor="registerPassword">Contraseña</label>
+            <div className="register-input-wrap">
+              <i className="fas fa-lock register-input-icon"></i>
               <input
                 id="registerPassword"
                 type="password"
-                className="form-control"
+                className="register-input"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
+                placeholder="••••••••"
                 required
               />
             </div>
           </div>
-          {error && <div className="alert alert-danger py-2 text-center">{error}</div>}
-          {success && <div className="alert alert-success py-2 text-center">{success}</div>}
-          <div className="d-grid mb-2">
-            <button type="submit" className="btn btn-primary">
-              <i className="fas fa-user-plus me-2"></i>Registrarse
-            </button>
-          </div>
+
+          {error && (
+            <div className="register-alert register-alert-error">
+              <i className="fas fa-exclamation-circle"></i>
+              {error}
+            </div>
+          )}
+          {success && (
+            <div className="register-alert register-alert-success">
+              <i className="fas fa-check-circle"></i>
+              {success}
+            </div>
+          )}
+
+          <button type="submit" className="register-submit">
+            <i className="fas fa-user-plus"></i>
+            Crear cuenta
+          </button>
         </form>
-        <div className="text-center mt-2">
-          <span>¿Ya tienes cuenta? <a href="/login">Inicia sesión</a></span>
+
+        <div className="register-footer">
+          <p>
+            ¿Ya tienes cuenta? <Link to="/login">Inicia sesión</Link>
+          </p>
         </div>
       </div>
     </div>

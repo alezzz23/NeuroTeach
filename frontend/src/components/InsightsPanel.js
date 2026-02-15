@@ -10,6 +10,7 @@ function InsightsPanel({ analytics, emotionData, progressData, history }) {
     if (analytics && emotionData && progressData && history) {
       generateInsights();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [analytics, emotionData, progressData, history]);
 
   const generateInsights = () => {

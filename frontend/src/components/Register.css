@@ -1,11 +1,61 @@
   /* Estilos para el componente Register */
 .register-container {
-  max-width: 400px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: radial-gradient(900px 500px at 20% 0%, rgba(0, 168, 45, 0.12), transparent 60%),
+    radial-gradient(800px 420px at 90% 10%, rgba(0, 168, 45, 0.08), transparent 55%),
+    #f8f9fa;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 440px;
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 20px;
+  box-shadow: 0 18px 60px rgba(15, 23, 42, 0.1);
+  padding: 28px;
+}
+
+.register-header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.register-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.register-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.register-brand-name {
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: #0b0f14;
+}
+
+.register-header h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  color: #0b0f14;
+}
+
+.register-header p {
+  margin: 8px 0 0;
+  color: #495057;
+  font-size: 0.95rem;
 }
 
 .register-form {
@@ -14,67 +64,114 @@
   gap: 1rem;
 }
 
-.register-title {
-  text-align: center;
-  color: #333;
-  margin-bottom: 1.5rem;
+.register-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.register-field label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0b0f14;
+}
+
+.register-input-wrap {
+  position: relative;
+}
+
+.register-input-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #adb5bd;
+  font-size: 1rem;
 }
 
 .register-input {
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  width: 100%;
+  padding: 0.875rem 1rem 0.875rem 2.75rem;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
   font-size: 1rem;
+  transition: all 0.2s ease;
+  background: #ffffff;
 }
 
 .register-input:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  border-color: #00a82d;
+  box-shadow: 0 0 0 4px rgba(0, 168, 45, 0.14);
 }
 
-.register-button {
-  padding: 0.75rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
+.register-alert {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
 }
 
-.register-button:hover {
-  background-color: #0056b3;
+.register-alert-error {
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
 }
 
-.register-button:disabled {
-  background-color: #6c757d;
-  cursor: not-allowed;
+.register-alert-success {
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+  color: #16a34a;
 }
 
-.register-error {
-  color: #dc3545;
+.register-submit {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid #00a82d;
+  border-radius: 12px;
+  background: #00a82d;
+  color: #ffffff;
+  font-weight: 700;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.register-submit:hover {
+  background: #008f26;
+  border-color: #008f26;
+}
+
+.register-footer {
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f0f0f0;
 }
 
-.register-success {
-  color: #28a745;
-  text-align: center;
-  margin-top: 1rem;
+.register-footer p {
+  margin: 0;
+  color: #6c757d;
+  font-size: 0.9rem;
 }
 
-.register-link {
-  text-align: center;
-  margin-top: 1rem;
-}
-
-.register-link a {
-  color: #007bff;
+.register-footer a {
+  color: #008f26;
+  font-weight: 600;
   text-decoration: none;
 }
 
-.register-link a:hover {
-  text-decoration: underline;
+.register-footer a:hover {
+  color: #00a82d;
+}
+
+@media (max-width: 480px) {
+  .register-card {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
 }

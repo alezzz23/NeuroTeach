@@ -4,14 +4,13 @@ import WebcamMock from './components/WebcamMock';
 import ChatTutorIA from './components/ChatTutorIA';
 import Dashboard from './components/Dashboard';
 import Adaptation from './components/Adaptation';
-import VirtualLabs from './components/VirtualLabs';
-import LabEnvironment from './components/LabEnvironment';
 
 import Login from './components/Login';
 import Register from './components/Register';
 import Logout from './components/Logout';
 import LandingPage from './components/LandingPage';
 import Welcome from './components/Welcome';
+import InternalNavbar from './components/InternalNavbar';
 import { AuthProvider, useAuth } from './AuthContext';
 import { NotificationProvider } from './components/NotificationSystem';
 
@@ -46,86 +45,16 @@ function RequireAuthWithWelcome({ children }) {
 function AppRoutes() {
   const { user, getUserData } = useAuth();
   const location = useLocation();
-  const userData = getUserData();
+  const pathname = location.pathname;
   
-  // No mostrar navbar en la landing page y welcome
-  const showNavbar = (location.pathname !== '/' && location.pathname !== '/welcome') || user;
+  // Navbar interna: solo para usuarios autenticados y fuera del flujo de auth/onboarding
+  const hideNavbarRoutes = ['/', '/login', '/register', '/welcome'];
+  const showNavbar = !!user && !hideNavbarRoutes.includes(pathname);
   
   return (
     <>
       {showNavbar && (
-          <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-          <div className="container">
-            <Link className="navbar-brand" to="/dashboard">
-              <i className="fas fa-brain me-2"></i>
-              NeuroTeach
-            </Link>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarNav">
-              <ul className="navbar-nav me-auto">
-                <li className="nav-item">
-                  <Link className="nav-link" to="/dashboard">
-                    <i className="fas fa-tachometer-alt me-1"></i>
-                    Dashboard
-                  </Link>
-                </li>
-
-                <li className="nav-item">
-                  <Link className="nav-link" to="/webcam">
-                    <i className="fas fa-video me-1"></i>
-                    Detección Emocional
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/virtual-labs">
-                    <i className="fas fa-flask me-1"></i>
-                    Laboratorios Virtuales
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/chat">
-                    <i className="fas fa-robot me-1"></i>
-                    Chat IA
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/adaptation">
-                    <i className="fas fa-cogs me-1"></i>
-                    Adaptación
-                  </Link>
-                </li>
-              </ul>
-              <ul className="navbar-nav">
-                {userData && (
-                  <li className="nav-item dropdown">
-                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                      <i className="fas fa-user-circle me-1"></i>
-                      {userData.name || userData.email}
-                    </a>
-                    <ul className="dropdown-menu">
-                      <li><h6 className="dropdown-header">Mi Cuenta</h6></li>
-                      <li><span className="dropdown-item-text"><small className="text-muted">{userData.email}</small></span></li>
-                      <li><hr className="dropdown-divider" /></li>
-                      <li><Link className="dropdown-item" to="/welcome"><i className="fas fa-graduation-cap me-2"></i>Tour de Bienvenida</Link></li>
-                      <li><hr className="dropdown-divider" /></li>
-                      <li><Link className="dropdown-item" to="/logout"><i className="fas fa-sign-out-alt me-2"></i>Cerrar Sesión</Link></li>
-                    </ul>
-                  </li>
-                )}
-                {!userData && (
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/logout">
-                      <i className="fas fa-sign-out-alt me-1"></i>
-                      Cerrar Sesión
-                    </Link>
-                  </li>
-                )}
-              </ul>
-            </div>
-          </div>
-        </nav>
+        <InternalNavbar />
       )}
       <Routes>
         <Route path="/" element={!user ? <LandingPage /> : <Navigate to="/dashboard" replace />} />
@@ -138,8 +67,6 @@ function AppRoutes() {
         <Route path="/chat" element={<RequireAuth><ChatTutorIA /></RequireAuth>} />
         <Route path="/dashboard" element={<RequireAuthWithWelcome><Dashboard /></RequireAuthWithWelcome>} />
         <Route path="/adaptation" element={<RequireAuth><Adaptation /></RequireAuth>} />
-        <Route path="/virtual-labs" element={<RequireAuth><VirtualLabs /></RequireAuth>} />
-        <Route path="/virtual-labs/:labId" element={<RequireAuth><LabEnvironment /></RequireAuth>} />
       </Routes>
     </>
   );

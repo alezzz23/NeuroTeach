@@ -26,12 +26,14 @@ function GoalsTracker({ analytics, history }) {
 
   useEffect(() => {
     loadGoals();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (goals.length > 0 && safeHistory) {
       updateGoalsProgress();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history, analytics]);
 
   const loadGoals = () => {

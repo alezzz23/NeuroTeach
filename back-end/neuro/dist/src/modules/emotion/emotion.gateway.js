@@ -38,7 +38,7 @@ let EmotionGateway = class EmotionGateway {
     }
     async handleFrame(data, client) {
         try {
-            const response = await axios_1.default.post('http://localhost:5000/analyze', {
+            const response = await axios_1.default.post(`${process.env.EMOTION_SERVICE_URL || 'http://localhost:5000'}/analyze`, {
                 image: data.image,
             });
             const emotion = response.data.emotion;

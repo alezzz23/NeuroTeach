@@ -1,0 +1,26 @@
+.dashboard-tabs {
+  background: #ffffff;
+  padding: 0.5rem;
+  border-radius: 14px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.05);
+  gap: 0.5rem;
+}
+
+.dashboard-tabs .nav-link {
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  color: #495057;
+  transition: all 0.2s ease;
+}
+
+.dashboard-tabs .nav-link:hover {
+  background: #f8f9fa;
+  color: #0b0f14;
+}
+
+.dashboard-tabs .nav-link.active {
+  background: rgba(0, 168, 45, 0.12);
+  color: #0b0f14;
+}

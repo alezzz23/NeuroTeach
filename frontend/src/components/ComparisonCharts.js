@@ -35,6 +35,7 @@ function ComparisonCharts({ history, filters }) {
     if (history && history.length > 0) {
       generateComparisonData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history, filters, activeComparison]);
 
   const generateComparisonData = () => {

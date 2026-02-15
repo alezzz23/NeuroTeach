@@ -48,4 +48,3 @@ __pycache__/
 .mypy_cache/
 
 # Virtual environments named 'venv' in any subfolder
-**/venv/
