@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Link, Navigate, useLocation } f
 import WebcamMock from './components/WebcamMock';
 import ChatTutorIA from './components/ChatTutorIA';
 import Dashboard from './components/Dashboard';
-import Adaptation from './components/Adaptation';
 
 import Login from './components/Login';
 import Register from './components/Register';
@@ -14,7 +13,6 @@ import InternalNavbar from './components/InternalNavbar';
 import { AuthProvider, useAuth } from './AuthContext';
 import { NotificationProvider } from './components/NotificationSystem';
 
-// Componente Home removido - ahora usamos LandingPage
 
 function RequireAuth({ children }) {
   const { user } = useAuth();
@@ -66,7 +64,6 @@ function AppRoutes() {
         <Route path="/webcam" element={<RequireAuth><WebcamMock /></RequireAuth>} />
         <Route path="/chat" element={<RequireAuth><ChatTutorIA /></RequireAuth>} />
         <Route path="/dashboard" element={<RequireAuthWithWelcome><Dashboard /></RequireAuthWithWelcome>} />
-        <Route path="/adaptation" element={<RequireAuth><Adaptation /></RequireAuth>} />
       </Routes>
     </>
   );

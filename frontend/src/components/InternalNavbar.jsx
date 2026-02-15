@@ -13,7 +13,7 @@ export default function InternalNavbar() {
     { to: '/dashboard', label: 'Dashboard', icon: 'fa-th-large', match: (p) => p === '/dashboard' },
     { to: '/webcam', label: 'Emociones', icon: 'fa-video', match: (p) => p === '/webcam' },
     { to: '/chat', label: 'Chat IA', icon: 'fa-robot', match: (p) => p === '/chat' },
-    { to: '/adaptation', label: 'Adaptación', icon: 'fa-cogs', match: (p) => p === '/adaptation' },
+    
   ];
 
   return (
