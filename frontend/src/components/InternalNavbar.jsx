@@ -11,6 +11,7 @@ export default function InternalNavbar() {
 
   const navItems = [
     { to: '/dashboard', label: 'Dashboard', icon: 'fa-th-large', match: (p) => p === '/dashboard' },
+    { to: '/learn', label: 'Aprender', icon: 'fa-graduation-cap', match: (p) => p.startsWith('/learn') || p.startsWith('/tracks') || p.startsWith('/exercises') },
     { to: '/webcam', label: 'Emociones', icon: 'fa-video', match: (p) => p === '/webcam' },
     { to: '/chat', label: 'Chat IA', icon: 'fa-robot', match: (p) => p === '/chat' },
     

@@ -28,6 +28,8 @@ model User {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @default(now()) @updatedAt
   histories       History[]
+  enrollments     Enrollment[]
+  exerciseProgress ExerciseProgress[]
 
 }
 
@@ -44,4 +46,83 @@ model History {
   user        User     @relation(fields: [userId], references: [id])
   userId      Int
 
+}
+
+model Track {
+  id          Int      @id @default(autoincrement())
+  slug        String   @unique
+  title       String
+  description String
+  isPublished Boolean  @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+
+  modules     Module[]
+  enrollments Enrollment[]
+}
+
+model Module {
+  id          Int      @id @default(autoincrement())
+  track       Track    @relation(fields: [trackId], references: [id])
+  trackId     Int
+  title       String
+  description String
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+
+  exercises   Exercise[]
+}
+
+model Exercise {
+  id            Int      @id @default(autoincrement())
+  module        Module   @relation(fields: [moduleId], references: [id])
+  moduleId      Int
+  slug          String
+  title         String
+  description   String
+  instructions  Json     @default("[]")
+  starterCode   String   @default("")
+  solutionCode  String   @default("")
+  type          String   @default("code")
+  language      String   @default("python")
+  validation    Json     @default("{}")
+  points        Int      @default(10)
+  order         Int      @default(0)
+  isPublished   Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now()) @updatedAt
+
+  progress      ExerciseProgress[]
+
+  @@unique([moduleId, slug])
+}
+
+model Enrollment {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  track     Track    @relation(fields: [trackId], references: [id])
+  trackId   Int
+  createdAt DateTime @default(now())
+
+  @@unique([userId, trackId])
+}
+
+model ExerciseProgress {
+  id            Int      @id @default(autoincrement())
+  user          User     @relation(fields: [userId], references: [id])
+  userId        Int
+  exercise      Exercise @relation(fields: [exerciseId], references: [id])
+  exerciseId    Int
+  code          String   @default("")
+  isCompleted   Boolean  @default(false)
+  attempts      Int      @default(0)
+  score         Int      @default(0)
+  completedAt   DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now()) @updatedAt
+
+  @@unique([userId, exerciseId])
 }

@@ -21,7 +21,7 @@ export default function Login() {
     try {
       const user = await authService.login(email, password);
       login(user);
-      navigate('/dashboard');
+      navigate('/learn');
     } catch (err) {
       setError(err.message || 'Credenciales inválidas');
     } finally {

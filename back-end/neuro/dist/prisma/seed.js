@@ -6,8 +6,9 @@ const prisma = new client_1.PrismaClient();
 async function main() {
     console.log('🌱 Iniciando seed de la base de datos...');
     const hashedPassword = await bcrypt.hash('123456', 10);
-    const adminUser = await prisma.user.create({
-        data: {
+    const adminUser = await prisma.user.upsert({
+        where: { email: 'admin@neuroteach.com' },
+        create: {
             name: 'Administrador',
             email: 'admin@neuroteach.com',
             password: hashedPassword,
@@ -18,9 +19,15 @@ async function main() {
             longestStreak: 15,
             lastSessionDate: new Date(),
         },
+        update: {
+            name: 'Administrador',
+            password: hashedPassword,
+            role: 'admin',
+        },
     });
-    const studentUser = await prisma.user.create({
-        data: {
+    const studentUser = await prisma.user.upsert({
+        where: { email: 'estudiante@neuroteach.com' },
+        create: {
             name: 'Estudiante Demo',
             email: 'estudiante@neuroteach.com',
             password: hashedPassword,
@@ -30,6 +37,11 @@ async function main() {
             currentStreak: 3,
             longestStreak: 7,
             lastSessionDate: new Date(),
+        },
+        update: {
+            name: 'Estudiante Demo',
+            password: hashedPassword,
+            role: 'user',
         },
     });
     const sampleHistory = [
@@ -77,10 +89,93 @@ async function main() {
     await prisma.history.createMany({
         data: sampleHistory,
     });
+    const existingTrack = await prisma.track.findUnique({ where: { slug: 'algoritmos-basicos' }, select: { id: true } });
+    if (existingTrack) {
+        await prisma.enrollment.deleteMany({ where: { trackId: existingTrack.id } });
+        const moduleIds = (await prisma.module.findMany({ where: { trackId: existingTrack.id }, select: { id: true } })).map((m) => m.id);
+        const exerciseIds = moduleIds.length
+            ? (await prisma.exercise.findMany({ where: { moduleId: { in: moduleIds } }, select: { id: true } })).map((e) => e.id)
+            : [];
+        if (exerciseIds.length) {
+            await prisma.exerciseProgress.deleteMany({ where: { exerciseId: { in: exerciseIds } } });
+            await prisma.exercise.deleteMany({ where: { id: { in: exerciseIds } } });
+        }
+        if (moduleIds.length) {
+            await prisma.module.deleteMany({ where: { id: { in: moduleIds } } });
+        }
+        await prisma.track.delete({ where: { id: existingTrack.id } });
+    }
+    const track = await prisma.track.create({
+        data: {
+            slug: 'algoritmos-basicos',
+            title: 'Algoritmos básicos',
+            description: 'Practica fundamentos de programación con ejercicios guiados.',
+            isPublished: true,
+            order: 1,
+            modules: {
+                create: [
+                    {
+                        title: 'Fundamentos',
+                        description: 'Variables, funciones y lógica básica.',
+                        order: 1,
+                        exercises: {
+                            create: [
+                                {
+                                    slug: 'hola-mundo',
+                                    title: 'Hola Mundo',
+                                    description: 'Imprime el texto "Hola Mundo".',
+                                    type: 'algorithm',
+                                    language: 'python',
+                                    isPublished: true,
+                                    order: 1,
+                                    instructions: ['Usa print() para imprimir exactamente: Hola Mundo'],
+                                    starterCode: 'print("" )\n',
+                                    solutionCode: 'print("Hola Mundo")',
+                                    validation: {
+                                        kind: 'io',
+                                        normalization: { trim: true },
+                                        cases: [{ input: '', expectedOutput: 'Hola Mundo' }],
+                                    },
+                                    points: 10,
+                                },
+                                {
+                                    slug: 'suma-dos-numeros',
+                                    title: 'Suma de dos números',
+                                    description: 'Crea una función suma(a, b) que retorne a + b.',
+                                    type: 'algorithm',
+                                    language: 'python',
+                                    isPublished: true,
+                                    order: 2,
+                                    instructions: [
+                                        'Define una función suma(a, b)',
+                                        'Debe retornar a + b',
+                                    ],
+                                    starterCode: 'def suma(a, b):\n    # TODO\n    pass\n',
+                                    solutionCode: 'def suma(a, b):\n    print(a + b)\n',
+                                    validation: {
+                                        kind: 'io',
+                                        normalization: { trim: true, ignoreWhitespace: true },
+                                        cases: [{ input: '2 3', expectedOutput: '5' }],
+                                    },
+                                    points: 15,
+                                },
+                            ],
+                        },
+                    },
+                ],
+            },
+        },
+    });
+    await prisma.enrollment.upsert({
+        where: { userId_trackId: { userId: studentUser.id, trackId: track.id } },
+        create: { userId: studentUser.id, trackId: track.id },
+        update: {},
+    });
     console.log('✅ Seed completado exitosamente!');
     console.log(`👤 Usuario administrador creado: ${adminUser.email}`);
     console.log(`👤 Usuario estudiante creado: ${studentUser.email}`);
     console.log(`📚 ${sampleHistory.length} registros de historial creados`);
+    console.log(`🧭 Track creado: ${track.slug}`);
     console.log('🔑 Contraseña para ambos usuarios: 123456');
 }
 main()

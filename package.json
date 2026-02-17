@@ -1,0 +1,17 @@
+{
+  "name": "neuroteach-workspace",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "back-end/neuro"
+  ],
+  "scripts": {
+    "dev": "concurrently -n backend,frontend -c blue,green \"npm run start:dev --workspace back-end/neuro\" \"npm start --workspace frontend\"",
+    "dev:backend": "npm run start:dev --workspace back-end/neuro",
+    "dev:frontend": "npm start --workspace frontend",
+    "build": "npm run build --workspace back-end/neuro && npm run build --workspace frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

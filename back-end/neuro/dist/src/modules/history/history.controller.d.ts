@@ -6,6 +6,7 @@ export declare class HistoryController {
         userId: string;
         history: {
             id: number;
+            userId: number;
             emotion: string;
             date: Date;
             topic: string;
@@ -14,7 +15,6 @@ export declare class HistoryController {
             difficulty: string;
             completed: boolean;
             pointsEarned: number;
-            userId: number;
         }[];
     }>;
     addHistory(data: {
@@ -25,6 +25,7 @@ export declare class HistoryController {
         score: number;
     }): Promise<{
         id: number;
+        userId: number;
         emotion: string;
         date: Date;
         topic: string;
@@ -33,6 +34,5 @@ export declare class HistoryController {
         difficulty: string;
         completed: boolean;
         pointsEarned: number;
-        userId: number;
     }>;
 }

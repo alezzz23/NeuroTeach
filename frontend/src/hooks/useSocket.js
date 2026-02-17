@@ -33,7 +33,7 @@ export function useSocket(namespace, options = {}) {
     return () => {
       socket.disconnect();
     };
-  }, [namespace]);
+  }, [namespace, options]);
 
   const emit = useCallback((event, data) => {
     if (socketRef.current?.connected) {

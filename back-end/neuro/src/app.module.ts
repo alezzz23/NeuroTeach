@@ -11,6 +11,7 @@ import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { GamificationModule } from './modules/gamification/gamification.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { LearnModule } from './modules/learn/learn.module';
 
 
 @Module({
@@ -25,6 +26,7 @@ import { AuthModule } from './modules/auth/auth.module';
     GamificationModule,
     PrismaModule,
     AuthModule,
+    LearnModule,
 
   ],
   controllers: [AppController],

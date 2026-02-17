@@ -6,6 +6,7 @@ export declare class HistoryService {
     constructor(prisma: PrismaService, gamificationService: GamificationService);
     getHistoryByUserId(userId: number): Promise<{
         id: number;
+        userId: number;
         emotion: string;
         date: Date;
         topic: string;
@@ -14,7 +15,6 @@ export declare class HistoryService {
         difficulty: string;
         completed: boolean;
         pointsEarned: number;
-        userId: number;
     }[]>;
     addHistory(data: {
         userId: number;
@@ -26,6 +26,7 @@ export declare class HistoryService {
         difficulty?: string;
     }): Promise<{
         id: number;
+        userId: number;
         emotion: string;
         date: Date;
         topic: string;
@@ -34,6 +35,5 @@ export declare class HistoryService {
         difficulty: string;
         completed: boolean;
         pointsEarned: number;
-        userId: number;
     }>;
 }

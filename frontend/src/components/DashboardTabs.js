@@ -2,6 +2,7 @@ import React from 'react';
 import './DashboardTabs.css';
 
 const tabs = [
+  { id: 'learning', label: 'Aprendizaje', icon: 'fa-graduation-cap' },
   { id: 'overview', label: 'Resumen', icon: 'fa-chart-line' },
   { id: 'insights', label: 'Insights IA', icon: 'fa-lightbulb' },
   { id: 'comparisons', label: 'Comparaciones', icon: 'fa-chart-bar' },

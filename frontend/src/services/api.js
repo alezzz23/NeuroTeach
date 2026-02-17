@@ -164,3 +164,81 @@ export const adaptationService = {
     return handleResponse(response);
   },
 };
+
+export const learnService = {
+  listTracks: async () => {
+    const response = await fetch(`${API_BASE_URL}/learn/tracks`, {
+      headers: { ...getAuthHeaders() },
+    });
+    return handleResponse(response);
+  },
+
+  listTracksWithProgress: async () => {
+    const response = await fetch(`${API_BASE_URL}/learn/tracks-with-progress`, {
+      headers: { ...getAuthHeaders() },
+    });
+    return handleResponse(response);
+  },
+
+  getDashboardSummary: async () => {
+    const response = await fetch(`${API_BASE_URL}/learn/dashboard-summary`, {
+      headers: { ...getAuthHeaders() },
+    });
+    return handleResponse(response);
+  },
+
+  getTrackBySlug: async (slug) => {
+    const response = await fetch(`${API_BASE_URL}/learn/tracks/${encodeURIComponent(slug)}`, {
+      headers: { ...getAuthHeaders() },
+    });
+    return handleResponse(response);
+  },
+
+  getTrackProgress: async (slug) => {
+    const response = await fetch(`${API_BASE_URL}/learn/tracks/${encodeURIComponent(slug)}/progress`, {
+      headers: { ...getAuthHeaders() },
+    });
+    return handleResponse(response);
+  },
+
+  getExerciseById: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/learn/exercises/${id}`, {
+      headers: { ...getAuthHeaders() },
+    });
+    return handleResponse(response);
+  },
+
+  getExerciseProgress: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/learn/exercises/${id}/progress`, {
+      headers: { ...getAuthHeaders() },
+    });
+    return handleResponse(response);
+  },
+
+  saveExerciseProgress: async (id, progressData) => {
+    const response = await fetch(`${API_BASE_URL}/learn/exercises/${id}/progress`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...getAuthHeaders() },
+      body: JSON.stringify(progressData),
+    });
+    return handleResponse(response);
+  },
+
+  runExercise: async (id, code) => {
+    const response = await fetch(`${API_BASE_URL}/learn/exercises/${id}/run`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...getAuthHeaders() },
+      body: JSON.stringify(typeof code === 'object' && code !== null ? code : { code }),
+    });
+    return handleResponse(response);
+  },
+
+  validateExercise: async (id, code) => {
+    const response = await fetch(`${API_BASE_URL}/learn/exercises/${id}/validate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...getAuthHeaders() },
+      body: JSON.stringify(typeof code === 'object' && code !== null ? code : { code }),
+    });
+    return handleResponse(response);
+  },
+};

@@ -13,7 +13,6 @@ const EMOTION_ICONS = {
   neutral: '😐',
   disgustado: '🤢',
   desconfiado: '😏',
-  neutral: '😐',
 };
 
 function WebcamMock() {
@@ -22,7 +21,6 @@ function WebcamMock() {
   const [confidence, setConfidence] = useState(0);
   const [error, setError] = useState(null);
   const [streaming, setStreaming] = useState(false);
-  const [connecting, setConnecting] = useState(false);
   
   const webcamRef = useRef(null);
   const socketRef = useRef(null);
@@ -34,7 +32,6 @@ function WebcamMock() {
   const connectWebSocket = useCallback(() => {
     if (socketRef.current?.connected) return;
     
-    setConnecting(true);
     const token = getToken();
     
     socketRef.current = io(`${API_BASE_URL}/emotion`, {
@@ -48,7 +45,6 @@ function WebcamMock() {
 
     socketRef.current.on('connect', () => {
       console.log('Connected to emotion service');
-      setConnecting(false);
       setError(null);
       reconnectAttempts.current = 0;
     });

@@ -12,11 +12,13 @@ import AdvancedFilters from './AdvancedFilters';
 import InsightsPanel from './InsightsPanel';
 import ComparisonCharts from './ComparisonCharts';
 import GoalsTracker from './GoalsTracker';
+import DashboardLearningPanel from './DashboardLearningPanel';
 import { DashboardHeader } from './DashboardHeader';
 import { DashboardTabs } from './DashboardTabs';
 import { DashboardHistoryTable } from './DashboardHistoryTable';
 import { DashboardEmptyState } from './DashboardEmptyState';
 import { LoadingSpinner } from './common/LoadingSpinner';
+import { Link } from 'react-router-dom';
 
 function Dashboard() {
   const { getUserId, getUserData } = useAuth();
@@ -224,8 +226,22 @@ function Dashboard() {
             history={history || []}
           />
 
+          {activeTab === 'learning' && (
+            <div className="slide-up">
+              <h3 className="section-title">
+                <i className="fas fa-graduation-cap"></i>
+                Mi Aprendizaje
+              </h3>
+              <DashboardLearningPanel />
+            </div>
+          )}
+
           {activeTab === 'overview' && (
             <>
+              <div className="slide-up">
+                <DashboardLearningPanel />
+              </div>
+
               <AnalyticsCards analytics={analytics} gamification={gamification} />
               
               {gamification && (
@@ -268,18 +284,42 @@ function Dashboard() {
             </div>
           )}
 
+          {activeTab === 'insights' && !insights && (
+            <div className="slide-up">
+              <div className="card">
+                <div className="card-body text-center py-5">
+                  <i className="fas fa-lightbulb fa-3x text-muted mb-3"></i>
+                  <h5 className="text-muted">Aún no hay suficientes datos</h5>
+                  <p className="text-muted mb-3">Completa ejercicios y sesiones para generar insights.</p>
+                  <Link to="/learn" className="btn btn-primary">Ir a Aprender</Link>
+                </div>
+              </div>
+            </div>
+          )}
+
           {activeTab === 'comparisons' && (
             <div className="slide-up">
               <h3 className="section-title">
                 <i className="fas fa-chart-bar"></i>
                 Análisis Comparativo
               </h3>
-              <ComparisonCharts 
-                history={filteredHistory}
-                analytics={analytics}
-                emotionData={emotionData}
-                progressData={progressData}
-              />
+              {filteredHistory.length === 0 ? (
+                <div className="card">
+                  <div className="card-body text-center py-5">
+                    <i className="fas fa-chart-bar fa-3x text-muted mb-3"></i>
+                    <h5 className="text-muted">Sin sesiones para comparar</h5>
+                    <p className="text-muted mb-3">Necesitas más actividad para ver comparaciones.</p>
+                    <Link to="/learn" className="btn btn-primary">Practicar ahora</Link>
+                  </div>
+                </div>
+              ) : (
+                <ComparisonCharts 
+                  history={filteredHistory}
+                  analytics={analytics}
+                  emotionData={emotionData}
+                  progressData={progressData}
+                />
+              )}
             </div>
           )}
 

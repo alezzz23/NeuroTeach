@@ -1,8 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import WebcamMock from './components/WebcamMock';
 import ChatTutorIA from './components/ChatTutorIA';
 import Dashboard from './components/Dashboard';
+import LearnTracks from './components/LearnTracks';
+import TrackDetail from './components/TrackDetail';
+import ExerciseWorkspace from './components/ExerciseWorkspace';
 
 import Login from './components/Login';
 import Register from './components/Register';
@@ -41,7 +44,7 @@ function RequireAuthWithWelcome({ children }) {
 }
 
 function AppRoutes() {
-  const { user, getUserData } = useAuth();
+  const { user } = useAuth();
   const location = useLocation();
   const pathname = location.pathname;
   
@@ -64,6 +67,9 @@ function AppRoutes() {
         <Route path="/webcam" element={<RequireAuth><WebcamMock /></RequireAuth>} />
         <Route path="/chat" element={<RequireAuth><ChatTutorIA /></RequireAuth>} />
         <Route path="/dashboard" element={<RequireAuthWithWelcome><Dashboard /></RequireAuthWithWelcome>} />
+        <Route path="/learn" element={<RequireAuth><LearnTracks /></RequireAuth>} />
+        <Route path="/tracks/:id" element={<RequireAuth><TrackDetail /></RequireAuth>} />
+        <Route path="/exercises/:id" element={<RequireAuth><ExerciseWorkspace /></RequireAuth>} />
       </Routes>
     </>
   );
