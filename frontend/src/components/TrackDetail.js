@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { learnService } from '../services/api';
+import Breadcrumb from './common/Breadcrumb';
+import { SkeletonCard } from './common/Skeleton';
 
 export default function TrackDetail() {
   const { id } = useParams();
@@ -45,11 +47,21 @@ export default function TrackDetail() {
 
   return (
     <div className="container py-4">
-      <div className="mb-3">
-        <Link to="/learn" className="btn btn-link px-0">← Volver</Link>
-      </div>
+      <Breadcrumb items={[
+        { label: 'Inicio', to: '/', icon: 'fa-home' },
+        { label: 'Aprender', to: '/learn' },
+        { label: track?.title || 'Track' },
+      ]} />
 
-      {loading && <div className="alert alert-info">Cargando track...</div>}
+      {loading && (
+        <div className="row g-3">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="col-12 col-md-6 col-lg-4">
+              <SkeletonCard />
+            </div>
+          ))}
+        </div>
+      )}
       {error && <div className="alert alert-danger">{error}</div>}
 
       {!loading && !error && track && (

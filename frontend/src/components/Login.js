@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
-import { authService } from '../services/api';
+import { authService, learnService } from '../services/api';
 import { FadeIn, SlideUp } from './common/Animations';
+import NeuralBackground from './NeuralBackground';
 import './Login.css';
 
 export default function Login() {
@@ -21,9 +22,27 @@ export default function Login() {
     try {
       const user = await authService.login(email, password);
       login(user);
-      navigate('/learn');
+      window.dispatchEvent(new CustomEvent('app:toast', {
+        detail: { message: `¡Bienvenido, ${user.name || user.email}!`, type: 'success' }
+      }));
+
+      const welcomeCompleted = localStorage.getItem('welcomeCompleted');
+      if (!welcomeCompleted) {
+        const summary = await learnService.getDashboardSummary().catch(() => null);
+        const nextId = summary?.nextExercise?.id;
+        if (nextId) {
+          localStorage.setItem('welcomeCompleted', 'true');
+          navigate(`/exercises/${nextId}`);
+          return;
+        }
+      }
+
+      navigate('/dashboard');
     } catch (err) {
       setError(err.message || 'Credenciales inválidas');
+      window.dispatchEvent(new CustomEvent('app:toast', {
+        detail: { message: err.message || 'Credenciales inválidas', type: 'error' }
+      }));
     } finally {
       setLoading(false);
     }
@@ -31,9 +50,12 @@ export default function Login() {
 
   return (
     <div className="login-container">
+      <NeuralBackground />
       <FadeIn className="login-card">
         <div className="login-header">
-          <i className="fas fa-brain login-icon"></i>
+          <div className="login-brand">
+            <img src="/logo.png" alt="NeuroTeach" className="login-logo" />
+          </div>
           <h2>Bienvenido de nuevo</h2>
           <p>Inicia sesión para continuar tu aprendizaje</p>
         </div>

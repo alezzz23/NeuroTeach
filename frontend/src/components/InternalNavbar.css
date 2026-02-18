@@ -2,9 +2,9 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(5, 6, 10, 0.72);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .inav-container {
@@ -23,14 +23,14 @@
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  color: #0b0f14;
+  color: rgba(255, 255, 255, 0.92);
   font-weight: 650;
   letter-spacing: -0.02em;
   flex: 0 0 auto;
 }
 
 .inav-brand-icon {
-  color: #00a82d;
+  color: rgba(140, 190, 255, 0.95);
 }
 
 .inav-links {
@@ -43,12 +43,12 @@
 }
 
 .inav-links::-webkit-scrollbar-thumb {
-  background: #e9ecef;
+  background: rgba(255, 255, 255, 0.18);
   border-radius: 999px;
 }
 
 .inav-links::-webkit-scrollbar-thumb:hover {
-  background: #dee2e6;
+  background: rgba(255, 255, 255, 0.28);
 }
 
 .inav-links {
@@ -66,20 +66,21 @@
   padding: 10px 12px;
   border-radius: 999px;
   text-decoration: none;
-  color: #495057;
+  color: rgba(255, 255, 255, 0.72);
   font-size: 0.95rem;
   white-space: nowrap;
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .inav-link:hover {
-  background: #f1f3f5;
-  color: #0b0f14;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .inav-link.is-active {
-  background: rgba(0, 168, 45, 0.12);
-  color: #0b0f14;
+  background: rgba(140, 190, 255, 0.18);
+  border: 1px solid rgba(140, 190, 255, 0.22);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .inav-link i {
@@ -97,7 +98,7 @@
   display: none;
   align-items: center;
   gap: 10px;
-  color: #495057;
+  color: rgba(255, 255, 255, 0.75);
   max-width: 240px;
 }
 
@@ -105,8 +106,9 @@
   width: 34px;
   height: 34px;
   border-radius: 999px;
-  background: rgba(0, 168, 45, 0.12);
-  color: #008f26;
+  background: rgba(140, 190, 255, 0.16);
+  border: 1px solid rgba(140, 190, 255, 0.22);
+  color: rgba(140, 190, 255, 0.95);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -127,15 +129,15 @@
   height: 38px;
   border-radius: 999px;
   text-decoration: none;
-  color: #495057;
-  border: 1px solid #e9ecef;
+  color: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .inav-logout:hover {
-  background: #f8f9fa;
-  border-color: #dee2e6;
-  color: #0b0f14;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 @media (min-width: 640px) {

@@ -88,12 +88,6 @@ export declare class LearnController {
         slug: string;
         title: string;
         description: string;
-        instructions: import("@prisma/client/runtime/library").JsonValue;
-        starterCode: string;
-        type: string;
-        language: string;
-        validation: import("@prisma/client/runtime/library").JsonValue;
-        points: number;
         module: {
             id: number;
             track: {
@@ -102,6 +96,12 @@ export declare class LearnController {
             };
             title: string;
         };
+        instructions: import("@prisma/client/runtime/library").JsonValue;
+        starterCode: string;
+        type: string;
+        language: string;
+        validation: import("@prisma/client/runtime/library").JsonValue;
+        points: number;
     }>;
     getExerciseProgress(id: number, req: any): Promise<{
         updatedAt: Date;

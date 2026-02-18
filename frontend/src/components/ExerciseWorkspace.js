@@ -2,6 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { gamificationService, learnService, tutorService } from '../services/api';
 import { useAuth } from '../AuthContext';
+import Breadcrumb from './common/Breadcrumb';
+import CompletionModal from './common/CompletionModal';
+import './common/CompletionModal.css';
 
 export default function ExerciseWorkspace() {
   const { id } = useParams();
@@ -12,6 +15,7 @@ export default function ExerciseWorkspace() {
   const [progress, setProgress] = useState(null);
 
   const [code, setCode] = useState('');
+  const [stdin, setStdin] = useState('');
   const [output, setOutput] = useState('');
   const [validation, setValidation] = useState(null);
   const [savedStatus, setSavedStatus] = useState(null);
@@ -26,6 +30,10 @@ export default function ExerciseWorkspace() {
   const [tutorAnswer, setTutorAnswer] = useState(null);
   const [tutorLoading, setTutorLoading] = useState(false);
 
+  const [showCompletionModal, setShowCompletionModal] = useState(false);
+  const [completionData, setCompletionData] = useState({ pointsEarned: 0, streakDays: 0, nextExercise: null, trackSlug: null });
+  const [trackContext, setTrackContext] = useState(null);
+
   useEffect(() => {
     let mounted = true;
     (async () => {
@@ -39,6 +47,11 @@ export default function ExerciseWorkspace() {
 
         const initialCode = (pr?.code ?? ex?.starterCode ?? '') || '';
         setCode(initialCode);
+
+        const firstCaseInput = Array.isArray(ex?.validation?.cases) && ex.validation.cases.length > 0
+          ? String(ex.validation.cases[0]?.input ?? '')
+          : '';
+        setStdin(firstCaseInput);
       } catch (e) {
         if (!mounted) return;
         setError(e?.message || 'Error al cargar ejercicio');
@@ -58,7 +71,7 @@ export default function ExerciseWorkspace() {
       setError(null);
       setValidation(null);
 
-      const res = await learnService.runExercise(exerciseId, { code });
+      const res = await learnService.runExercise(exerciseId, { code, submission: { stdin } });
       setOutput(res?.output || '');
 
       await learnService.saveExerciseProgress(exerciseId, { code }).catch(() => null);
@@ -97,6 +110,21 @@ export default function ExerciseWorkspace() {
             const pr = await learnService.getExerciseProgress(exerciseId).catch(() => null);
             setProgress(pr);
             setSavedStatus('Progreso guardado');
+
+            // Show completion modal
+            const gamif = await gamificationService.getUserGamification(userId).catch(() => null);
+            setCompletionData({
+              pointsEarned: Number(exercise?.points) || 0,
+              streakDays: gamif?.streakDays || 0,
+              nextExercise: null,
+              trackSlug: trackContext?.slug || null,
+            });
+            setShowCompletionModal(true);
+
+            // Dispatch toast
+            window.dispatchEvent(new CustomEvent('app:toast', {
+              detail: { message: `¡Ejercicio completado! +${exercise?.points || 0} XP`, type: 'success' }
+            }));
           }
         } catch (e) {
           setValidation({ ok: false, errors: [e.message] });
@@ -147,11 +175,16 @@ export default function ExerciseWorkspace() {
     );
   }
 
+  const breadcrumbItems = [
+    { label: 'Inicio', to: '/', icon: 'fa-home' },
+    { label: 'Aprender', to: '/learn' },
+    ...(trackContext ? [{ label: trackContext.title, to: `/tracks/${trackContext.slug}` }] : []),
+    { label: exercise?.title || 'Ejercicio' },
+  ];
+
   return (
     <div className="container py-4">
-      <div className="mb-3">
-        <Link to="/learn" className="btn btn-link px-0">← Aprender</Link>
-      </div>
+      <Breadcrumb items={breadcrumbItems} />
 
       <div className="row g-3">
         <div className="col-12 col-lg-7">
@@ -180,6 +213,18 @@ export default function ExerciseWorkspace() {
                 </button>
               </div>
 
+              <div className="mb-3">
+                <div className="fw-semibold mb-1">Entrada (stdin)</div>
+                <textarea
+                  className="form-control"
+                  value={stdin}
+                  onChange={(e) => setStdin(e.target.value)}
+                  rows={3}
+                  placeholder="Ej: 2 3"
+                  style={{ fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace' }}
+                />
+              </div>
+
               {savedStatus && <div className="alert alert-success py-2">{savedStatus}</div>}
 
               {output && (
@@ -201,7 +246,24 @@ export default function ExerciseWorkspace() {
                       <ul className="mb-0">
                         {validation.details.map((d) => (
                           <li key={d.index}>
-                            Caso {Number(d.index) + 1}: {d.ok ? 'OK' : 'Falló'}
+                            <div>
+                              Caso {Number(d.index) + 1}: {d.ok ? 'OK' : 'Falló'}
+                            </div>
+                            {typeof d.expectedOutput === 'string' && (
+                              <div className="text-muted" style={{ whiteSpace: 'pre-wrap' }}>
+                                Esperado: {d.expectedOutput}
+                              </div>
+                            )}
+                            {typeof d.stdout === 'string' && (
+                              <div className="text-muted" style={{ whiteSpace: 'pre-wrap' }}>
+                                Stdout: {d.stdout}
+                              </div>
+                            )}
+                            {typeof d.stderr === 'string' && d.stderr && (
+                              <div className="text-muted" style={{ whiteSpace: 'pre-wrap' }}>
+                                Stderr: {d.stderr}
+                              </div>
+                            )}
                           </li>
                         ))}
                       </ul>
@@ -289,6 +351,16 @@ export default function ExerciseWorkspace() {
           </div>
         </div>
       </div>
+
+      <CompletionModal
+        isOpen={showCompletionModal}
+        onClose={() => setShowCompletionModal(false)}
+        exercise={exercise}
+        pointsEarned={completionData.pointsEarned}
+        streakDays={completionData.streakDays}
+        nextExercise={completionData.nextExercise}
+        trackSlug={completionData.trackSlug}
+      />
     </div>
   );
 }

@@ -96,7 +96,7 @@ export class LearnController {
     }
     const code = String(body?.code ?? '');
     const submission = (body as any)?.submission;
-    return runCodeMvp(code, (exercise as any).language, submission, (exercise as any));
+    return await runCodeMvp(code, (exercise as any).language, submission, (exercise as any));
   }
 
   @Post('exercises/:id/validate')
@@ -110,6 +110,6 @@ export class LearnController {
     }
     const code = String(body?.code ?? '');
     const submission = (body as any)?.submission;
-    return validateCodeMvp(code, (exercise as any).validation, submission, (exercise as any));
+    return await validateCodeMvp(code, (exercise as any).validation, submission, (exercise as any));
   }
 }

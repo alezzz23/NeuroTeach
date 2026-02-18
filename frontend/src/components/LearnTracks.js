@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { learnService } from '../services/api';
+import Breadcrumb from './common/Breadcrumb';
+import { SkeletonCard } from './common/Skeleton';
 
 export default function LearnTracks() {
   const [tracks, setTracks] = useState([]);
@@ -28,11 +30,32 @@ export default function LearnTracks() {
     };
   }, []);
 
-  if (loading) return <div className="container py-4">Cargando tracks...</div>;
+  if (loading) {
+    return (
+      <div className="container py-4">
+        <Breadcrumb items={[
+          { label: 'Inicio', to: '/', icon: 'fa-home' },
+          { label: 'Aprender' },
+        ]} />
+        <div className="row g-3">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div key={i} className="col-12 col-md-6 col-lg-4">
+              <SkeletonCard />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
   if (error) return <div className="container py-4 text-danger">{error}</div>;
 
   return (
     <div className="container py-4">
+      <Breadcrumb items={[
+        { label: 'Inicio', to: '/', icon: 'fa-home' },
+        { label: 'Aprender' },
+      ]} />
+
       <div className="d-flex align-items-center justify-content-between mb-3">
         <div>
           <h2 className="mb-1">Aprender</h2>

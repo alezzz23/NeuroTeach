@@ -2,6 +2,69 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.runCodeMvp = runCodeMvp;
 exports.validateCodeMvp = validateCodeMvp;
+const node_child_process_1 = require("node:child_process");
+const promises_1 = require("node:fs/promises");
+const node_os_1 = require("node:os");
+const node_path_1 = require("node:path");
+const node_crypto_1 = require("node:crypto");
+const MAX_OUTPUT_CHARS = 4000;
+const PY_TIMEOUT_MS = 1500;
+function truncateOutput(s) {
+    const out = String(s ?? '');
+    if (out.length <= MAX_OUTPUT_CHARS)
+        return out;
+    return `${out.slice(0, MAX_OUTPUT_CHARS)}\n... [salida truncada]`;
+}
+function containsDangerousPython(code) {
+    const banned = [
+        /\bimport\s+os\b/i,
+        /\bimport\s+sys\b/i,
+        /\bimport\s+subprocess\b/i,
+        /\bfrom\s+os\b/i,
+        /\bfrom\s+sys\b/i,
+        /\bfrom\s+subprocess\b/i,
+        /\bopen\s*\(/i,
+        /\beval\s*\(/i,
+        /\bexec\s*\(/i,
+        /__import__\s*\(/i,
+    ];
+    return banned.some((re) => re.test(code));
+}
+async function runPython(code, stdin) {
+    const fileName = `neuroteach_${(0, node_crypto_1.randomBytes)(8).toString('hex')}.py`;
+    const filePath = (0, node_path_1.join)((0, node_os_1.tmpdir)(), fileName);
+    await (0, promises_1.writeFile)(filePath, code, { encoding: 'utf8' });
+    try {
+        const res = await new Promise((resolve) => {
+            const child = (0, node_child_process_1.execFile)('python3', ['-I', filePath], {
+                timeout: PY_TIMEOUT_MS,
+                maxBuffer: 1024 * 1024,
+                env: {
+                    ...process.env,
+                    PYTHONUNBUFFERED: '1',
+                },
+            }, (error, stdout, stderr) => {
+                const anyErr = error;
+                const timedOut = Boolean(anyErr?.killed && anyErr?.signal === 'SIGTERM') || anyErr?.code === 'ETIMEDOUT';
+                const exitCode = typeof anyErr?.code === 'number' ? anyErr.code : timedOut ? 124 : 0;
+                resolve({
+                    stdout: truncateOutput(String(stdout ?? '')),
+                    stderr: truncateOutput(String(stderr ?? '')),
+                    exitCode,
+                    timedOut,
+                });
+            });
+            if (stdin) {
+                child.stdin?.write(String(stdin));
+            }
+            child.stdin?.end();
+        });
+        return res;
+    }
+    finally {
+        await (0, promises_1.unlink)(filePath).catch(() => null);
+    }
+}
 function normalizeText(s, opts) {
     let out = String(s ?? '');
     if (opts?.trim !== false)
@@ -98,15 +161,27 @@ function validateTerminalSteps(submission, spec) {
     const score = cases.length ? Math.round((details.filter((d) => d.ok).length / cases.length) * 100) : errors.length ? 0 : 100;
     return { errors, details, score };
 }
-function runCodeMvp(code, language, submission, exercise) {
+async function runCodeMvp(code, language, submission, exercise) {
     if (!code || typeof code !== 'string') {
         return { output: '', error: 'Código inválido' };
     }
     const normalizedLang = String(language || '').toLowerCase();
-    const extracted = simulateOutputFromCode(code, normalizedLang);
-    if (extracted) {
-        return { output: extracted };
+    if (normalizedLang === 'python') {
+        if (containsDangerousPython(code)) {
+            return { output: '', error: 'Código contiene operaciones no permitidas en este entorno.' };
+        }
+        const submitted = (submission && typeof submission === 'object' ? submission : {});
+        const stdin = String(submitted.stdin ?? '');
+        const r = await runPython(code, stdin);
+        if (r.timedOut)
+            return { output: r.stdout, error: 'Tiempo de ejecución excedido' };
+        if (r.exitCode !== 0 && r.stderr)
+            return { output: r.stdout, error: r.stderr };
+        return { output: r.stdout };
     }
+    const extracted = simulateOutputFromCode(code, normalizedLang);
+    if (extracted)
+        return { output: extracted };
     if (exercise?.type === 'terminal') {
         const submitted = (submission && typeof submission === 'object' ? submission : {});
         const transcript = Array.isArray(submitted.commands) ? submitted.commands.map(String).join('\n') : '';
@@ -114,7 +189,7 @@ function runCodeMvp(code, language, submission, exercise) {
     }
     return { output: '' };
 }
-function validateCodeMvp(code, validation, submission, exercise) {
+async function validateCodeMvp(code, validation, submission, exercise) {
     const spec = (validation && typeof validation === 'object' ? validation : {});
     const kind = String(spec.kind ?? '').toLowerCase();
     const exType = String(exercise?.type ?? 'code').toLowerCase();
@@ -127,12 +202,52 @@ function validateCodeMvp(code, validation, submission, exercise) {
         errors = legacy.errors;
     }
     else if ((kind === 'io' || kind === 'testcases') && (exType === 'code' || exType === 'algorithm')) {
-        const lang = String(exercise?.language ?? 'python');
-        output = simulateOutputFromCode(code, lang);
-        const io = validateIoCases(output, spec);
-        errors = io.errors;
-        details = io.details;
-        score = io.score;
+        const lang = String(exercise?.language ?? 'python').toLowerCase();
+        const cases = Array.isArray(spec.cases) ? spec.cases : [];
+        if (lang === 'python') {
+            if (containsDangerousPython(code)) {
+                errors = ['Código contiene operaciones no permitidas en este entorno.'];
+                details = [];
+                score = 0;
+            }
+            else {
+                const perCase = [];
+                let passed = 0;
+                for (let i = 0; i < cases.length; i++) {
+                    const c = cases[i] ?? {};
+                    const stdin = String(c.input ?? '');
+                    const expectedRaw = String(c.expectedOutput ?? '');
+                    const expected = normalizeText(expectedRaw, spec.normalization);
+                    const r = await runPython(code, stdin);
+                    const gotRaw = r.stdout;
+                    const got = normalizeText(gotRaw, spec.normalization);
+                    const ok = !r.timedOut && r.exitCode === 0 && expected === got;
+                    if (ok)
+                        passed++;
+                    perCase.push({
+                        index: i,
+                        ok,
+                        input: stdin,
+                        expectedOutput: expectedRaw,
+                        stdout: r.stdout,
+                        stderr: r.stderr,
+                        exitCode: r.exitCode,
+                        timedOut: r.timedOut,
+                    });
+                }
+                details = perCase;
+                score = cases.length ? Math.round((passed / cases.length) * 100) : 100;
+                errors = perCase.filter((d) => !d.ok).map((d) => `Caso ${Number(d.index) + 1} falló.`);
+                output = perCase.length ? String(perCase[perCase.length - 1]?.stdout ?? '') : '';
+            }
+        }
+        else {
+            output = simulateOutputFromCode(code, lang);
+            const io = validateIoCases(output, spec);
+            errors = io.errors;
+            details = io.details;
+            score = io.score;
+        }
     }
     else if ((kind === 'steps' || kind === 'terminal') && exType === 'terminal') {
         const term = validateTerminalSteps(submission, spec);

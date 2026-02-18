@@ -129,7 +129,7 @@ async function main() {
                                     isPublished: true,
                                     order: 1,
                                     instructions: ['Usa print() para imprimir exactamente: Hola Mundo'],
-                                    starterCode: 'print("" )\n',
+                                    starterCode: 'print("Hola Mundo")\n',
                                     solutionCode: 'print("Hola Mundo")',
                                     validation: {
                                         kind: 'io',
@@ -150,8 +150,8 @@ async function main() {
                                         'Define una función suma(a, b)',
                                         'Debe retornar a + b',
                                     ],
-                                    starterCode: 'def suma(a, b):\n    # TODO\n    pass\n',
-                                    solutionCode: 'def suma(a, b):\n    print(a + b)\n',
+                                    starterCode: 'def suma(a, b):\n    # TODO\n    return 0\n\n# Entrada: dos enteros separados por espacio\na, b = map(int, input().split())\nprint(suma(a, b))\n',
+                                    solutionCode: 'def suma(a, b):\n    return a + b\n\n# Entrada: dos enteros separados por espacio\na, b = map(int, input().split())\nprint(suma(a, b))\n',
                                     validation: {
                                         kind: 'io',
                                         normalization: { trim: true, ignoreWhitespace: true },

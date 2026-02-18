@@ -2,20 +2,111 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 2rem;
-  background-color: #f8f9fa;
+  background: radial-gradient(900px 500px at 20% 0%, rgba(140, 190, 255, 0.12), transparent 60%),
+    radial-gradient(800px 420px at 90% 10%, rgba(255, 255, 255, 0.06), transparent 55%),
+    #05060a;
   min-height: 100vh;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Scoped Bootstrap overrides inside Dashboard */
+.dashboard-container .card,
+.dashboard-container .border,
+.dashboard-container .border.rounded,
+.dashboard-container .border.rounded-3,
+.dashboard-container .border.rounded-4 {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.dashboard-container .card {
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.35);
+}
+
+.dashboard-container .card-header,
+.dashboard-container .card-body,
+.dashboard-container .card-footer {
+  background: transparent;
+}
+
+.dashboard-container .text-muted {
+  color: rgba(255, 255, 255, 0.62) !important;
+}
+
+.dashboard-container .section-title {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dashboard-container a,
+.dashboard-container .btn-link {
+  color: rgba(140, 190, 255, 0.95);
+}
+
+.dashboard-container a:hover,
+.dashboard-container .btn-link:hover {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.dashboard-container .list-group-item {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.dashboard-container .list-group-item-action:hover,
+.dashboard-container .list-group-item-action:focus {
+  background: rgba(140, 190, 255, 0.06);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.dashboard-container .btn-primary {
+  background: rgba(140, 190, 255, 0.22);
+  border-color: rgba(140, 190, 255, 0.28);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.dashboard-container .btn-primary:hover {
+  background: rgba(140, 190, 255, 0.28);
+  border-color: rgba(140, 190, 255, 0.38);
+}
+
+.dashboard-container .btn-outline-primary {
+  background: transparent;
+  border-color: rgba(140, 190, 255, 0.38);
+  color: rgba(140, 190, 255, 0.95);
+}
+
+.dashboard-container .btn-outline-primary:hover {
+  background: rgba(140, 190, 255, 0.14);
+  border-color: rgba(140, 190, 255, 0.48);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.dashboard-container .btn-outline-success {
+  background: transparent;
+  border-color: rgba(140, 190, 255, 0.38);
+  color: rgba(140, 190, 255, 0.95);
+}
+
+.dashboard-container .btn-outline-success:hover {
+  background: rgba(140, 190, 255, 0.14);
+  border-color: rgba(140, 190, 255, 0.48);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 /* Dashboard Navigation Tabs */
 .dashboard-tabs {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 14px;
   padding: 8px;
-  border: 1px solid #e9ecef;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(14px);
 }
 
 .dashboard-tabs .nav-link {
-  color: #495057;
+  color: rgba(255, 255, 255, 0.72);
   border: none;
   border-radius: 10px;
   padding: 12px 20px;
@@ -26,15 +117,16 @@
 }
 
 .dashboard-tabs .nav-link:hover {
-  color: #0b0f14;
-  background: #f8f9fa;
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.06);
   transform: translateY(-2px);
 }
 
 .dashboard-tabs .nav-link.active {
-  color: #0b0f14;
-  background: rgba(0, 168, 45, 0.12);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(140, 190, 255, 0.18);
+  border: 1px solid rgba(140, 190, 255, 0.22);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.35);
   transform: translateY(-2px);
 }
 
@@ -55,51 +147,60 @@
 
 /* Modern Input Styling */
 .input-group-text {
-  background-color: #00a82d;
-  color: #ffffff;
-  border: none;
+  background: rgba(140, 190, 255, 0.18);
+  color: rgba(140, 190, 255, 0.95);
+  border: 1px solid rgba(140, 190, 255, 0.22);
 }
 
 .form-control {
-  border: 2px solid #e9ecef;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 8px;
   padding: 0.75rem 1rem;
   font-size: 1rem;
   transition: all 0.3s ease;
 }
 
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
 .form-control:focus {
-  border-color: #00a82d;
-  box-shadow: 0 0 0 0.2rem rgba(0, 168, 45, 0.18);
+  border-color: rgba(140, 190, 255, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(140, 190, 255, 0.18);
 }
 
 /* Table Improvements */
 .table {
-  background-color: white;
+  background: rgba(255, 255, 255, 0.06);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   margin: 0;
+  color: rgba(255, 255, 255, 0.88);
 }
 
 .table th {
-  background-color: #f8f9fa;
+  background: rgba(255, 255, 255, 0.06);
   font-weight: 600;
-  border-bottom: 2px solid #dee2e6;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   padding: 1rem;
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .table td {
   vertical-align: middle;
   padding: 1rem;
-  border-bottom: 1px solid #f1f3f4;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .table-hover tbody tr:hover {
-  background-color: rgba(0, 168, 45, 0.04);
+  background-color: rgba(140, 190, 255, 0.06);
   transform: scale(1.01);
   transition: all 0.2s ease;
 }
@@ -115,7 +216,7 @@
 /* Progress Bar Styling */
 .progress {
   border-radius: 10px;
-  background-color: #e9ecef;
+  background-color: rgba(255, 255, 255, 0.12);
 }
 
 .progress-bar {
@@ -167,15 +268,15 @@
 }
 
 .table-responsive::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 10px;
 }
 
 .table-responsive::-webkit-scrollbar-thumb {
-  background: #00a82d;
+  background: rgba(140, 190, 255, 0.35);
   border-radius: 10px;
 }
 
 .table-responsive::-webkit-scrollbar-thumb:hover {
-  background: #008f26;
+  background: rgba(140, 190, 255, 0.5);
 }

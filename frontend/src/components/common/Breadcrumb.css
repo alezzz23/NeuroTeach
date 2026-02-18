@@ -1,0 +1,69 @@
+/* Breadcrumb Navigation Styles */
+.breadcrumb-nav {
+  margin-bottom: 16px;
+}
+
+.breadcrumb-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+  color: rgba(140, 190, 255, 0.95);
+}
+
+.breadcrumb-link i {
+  font-size: 0.85rem;
+}
+
+.breadcrumb-separator {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.breadcrumb-current {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.breadcrumb-current i {
+  font-size: 0.85rem;
+  color: rgba(140, 190, 255, 0.85);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .breadcrumb-link,
+  .breadcrumb-current {
+    font-size: 0.85rem;
+  }
+
+  .breadcrumb-separator {
+    font-size: 0.6rem;
+  }
+}

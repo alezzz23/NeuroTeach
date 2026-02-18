@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { API_BASE_URL } from '../config';
+import NeuralBackground from './NeuralBackground';
 import './Register.css';
 
 export default function Register() {
@@ -23,19 +24,25 @@ export default function Register() {
       });
       if (!res.ok) throw new Error('No se pudo registrar');
       setSuccess('Registro exitoso. Ahora puedes iniciar sesión.');
+      window.dispatchEvent(new CustomEvent('app:toast', {
+        detail: { message: '¡Cuenta creada! Ya puedes iniciar sesión.', type: 'success' }
+      }));
       setTimeout(() => navigate('/login'), 1500);
     } catch (err) {
       setError(err.message);
+      window.dispatchEvent(new CustomEvent('app:toast', {
+        detail: { message: err.message || 'Error al registrar', type: 'error' }
+      }));
     }
   };
 
   return (
     <div className="register-container">
+      <NeuralBackground />
       <div className="register-card">
         <div className="register-header">
           <div className="register-brand">
             <img src="/logo.png" alt="NeuroTeach" className="register-logo" />
-            <span className="register-brand-name">NeuroTeach</span>
           </div>
           <h2>Crea tu cuenta</h2>
           <p>Empieza gratis y accede al dashboard.</p>

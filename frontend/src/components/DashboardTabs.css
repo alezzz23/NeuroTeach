@@ -1,9 +1,10 @@
 .dashboard-tabs {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
   padding: 0.5rem;
   border-radius: 14px;
-  border: 1px solid #e9ecef;
-  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(14px);
   gap: 0.5rem;
 }
 
@@ -11,16 +12,18 @@
   border-radius: 8px;
   padding: 0.75rem 1.25rem;
   font-weight: 600;
-  color: #495057;
+  color: rgba(255, 255, 255, 0.72);
   transition: all 0.2s ease;
+  border: 1px solid transparent;
 }
 
 .dashboard-tabs .nav-link:hover {
-  background: #f8f9fa;
-  color: #0b0f14;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .dashboard-tabs .nav-link.active {
-  background: rgba(0, 168, 45, 0.12);
-  color: #0b0f14;
+  background: rgba(140, 190, 255, 0.18);
+  border: 1px solid rgba(140, 190, 255, 0.22);
+  color: rgba(255, 255, 255, 0.95);
 }

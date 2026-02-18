@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
+import NeuralBackground from './NeuralBackground';
 import './Welcome.css';
 
 function Welcome() {
@@ -14,108 +15,56 @@ function Welcome() {
       title: `¡Bienvenido a NeuroTeach, ${userData?.name || 'Usuario'}!`,
       content: (
         <div className="text-center">
-          <i className="fas fa-brain fa-4x text-primary mb-4"></i>
+          <img src="/logo.png" alt="NeuroTeach" className="welcome-logo" />
           <p className="lead">
-            Estás a punto de experimentar una revolución en el aprendizaje personalizado.
-            NeuroTeach utiliza inteligencia artificial para adaptarse a tus emociones y
-            maximizar tu potencial educativo.
+            Retoma tu progreso, completa ejercicios y visualiza tu avance.
           </p>
-        </div>
-      )
-    },
-    {
-      title: "¿Cómo funciona NeuroTeach?",
-      content: (
-        <div className="row g-4">
-          <div className="col-md-4 text-center">
-            <div className="feature-highlight">
-              <i className="fas fa-eye fa-3x text-success mb-3"></i>
-              <h5>Detección Emocional</h5>
-              <p>Analizamos tus emociones en tiempo real a través de la cámara</p>
-            </div>
-          </div>
-          <div className="col-md-4 text-center">
-            <div className="feature-highlight">
-              <i className="fas fa-robot fa-3x text-info mb-3"></i>
-              <h5>Tutor IA</h5>
-              <p>Un asistente inteligente que se adapta a tu estilo de aprendizaje</p>
-            </div>
-          </div>
-          <div className="col-md-4 text-center">
-            <div className="feature-highlight">
-              <i className="fas fa-chart-line fa-3x text-warning mb-3"></i>
-              <h5>Análisis de Progreso</h5>
-              <p>Visualiza tu evolución con métricas detalladas</p>
-            </div>
+          <div className="welcome-cta-row">
+            <button className="btn btn-primary" onClick={() => navigate('/dashboard')}>Ir al dashboard</button>
+            <button className="btn btn-outline-primary" onClick={() => navigate('/learn')}>Elegir un track</button>
           </div>
         </div>
       )
     },
     {
-      title: "Explora las funcionalidades",
+      title: "Empieza en 1 minuto",
       content: (
         <div className="row g-3">
-          <div className="col-md-6">
-            <div className="card h-100 border-primary">
-              <div className="card-body text-center">
-                <i className="fas fa-video fa-2x text-primary mb-3"></i>
-                <h6>Webcam</h6>
-                <p className="small">Detecta tus emociones en tiempo real</p>
-              </div>
+          <div className="col-12 col-md-4">
+            <div className="welcome-feature" role="button" tabIndex={0} onClick={() => navigate('/learn')} onKeyDown={(e) => e.key === 'Enter' && navigate('/learn')}>
+              <div className="welcome-feature-icon"><i className="fas fa-graduation-cap" /></div>
+              <div className="welcome-feature-title">Aprende</div>
+              <div className="welcome-feature-text">Elige un track y avanza con ejercicios.</div>
             </div>
           </div>
-          <div className="col-md-6">
-            <div className="card h-100 border-success">
-              <div className="card-body text-center">
-                <i className="fas fa-robot fa-2x text-success mb-3"></i>
-                <h6>Chat Tutor IA</h6>
-                <p className="small">Conversa con tu tutor personalizado</p>
-              </div>
+          <div className="col-12 col-md-4">
+            <div className="welcome-feature" role="button" tabIndex={0} onClick={() => navigate('/chat')} onKeyDown={(e) => e.key === 'Enter' && navigate('/chat')}>
+              <div className="welcome-feature-icon"><i className="fas fa-robot" /></div>
+              <div className="welcome-feature-title">Pide ayuda</div>
+              <div className="welcome-feature-text">Usa el tutor IA cuando te atasques.</div>
             </div>
           </div>
-          <div className="col-md-6">
-            <div className="card h-100 border-info">
-              <div className="card-body text-center">
-                <i className="fas fa-chart-line fa-2x text-info mb-3"></i>
-                <h6>Dashboard</h6>
-                <p className="small">Analiza tu progreso y estadísticas</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="card h-100 border-warning">
-              <div className="card-body text-center">
-                <i className="fas fa-lightbulb fa-2x text-warning mb-3"></i>
-                <h6>Adaptación</h6>
-                <p className="small">Contenido personalizado según tu progreso</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="card h-100 border-danger">
-              <div className="card-body text-center">
-                <i className="fas fa-flask fa-2x text-danger mb-3"></i>
-                <h6>Laboratorios Virtuales</h6>
-                <p className="small">Practica con entornos reales de programación</p>
-              </div>
+          <div className="col-12 col-md-4">
+            <div className="welcome-feature" role="button" tabIndex={0} onClick={() => navigate('/dashboard')} onKeyDown={(e) => e.key === 'Enter' && navigate('/dashboard')}>
+              <div className="welcome-feature-icon"><i className="fas fa-chart-line" /></div>
+              <div className="welcome-feature-title">Mide progreso</div>
+              <div className="welcome-feature-text">Sigue tu XP, racha y actividad.</div>
             </div>
           </div>
         </div>
       )
     },
     {
-      title: "¡Comienza tu viaje de aprendizaje!",
+      title: "Tip rápido",
       content: (
         <div className="text-center">
-          <i className="fas fa-rocket fa-4x text-success mb-4"></i>
-          <p className="lead">
-            Todo está listo. Tu dashboard personal te está esperando con
-            análisis detallados y recomendaciones personalizadas.
-          </p>
-          <div className="alert alert-info">
-            <i className="fas fa-lightbulb me-2"></i>
-            <strong>Consejo:</strong> Asegúrate de permitir el acceso a la cámara
-            para obtener la mejor experiencia de detección emocional.
+          <div className="welcome-tip">
+            <i className="fas fa-video me-2" />
+            Si quieres usar detección emocional, habilita la cámara en la sección <strong>Emociones</strong>.
+          </div>
+          <div className="welcome-cta-row">
+            <button className="btn btn-outline-primary" onClick={() => navigate('/webcam')}>Configurar cámara</button>
+            <button className="btn btn-primary" onClick={() => navigate('/dashboard')}>Continuar</button>
           </div>
         </div>
       )
@@ -139,6 +88,7 @@ function Welcome() {
 
   return (
     <div className="welcome-container">
+      <NeuralBackground />
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-8">

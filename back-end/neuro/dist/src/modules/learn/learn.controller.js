@@ -73,7 +73,7 @@ let LearnController = class LearnController {
         }
         const code = String(body?.code ?? '');
         const submission = body?.submission;
-        return (0, learn_runtime_1.runCodeMvp)(code, exercise.language, submission, exercise);
+        return await (0, learn_runtime_1.runCodeMvp)(code, exercise.language, submission, exercise);
     }
     async validateExercise(id, body) {
         const exercise = await this.learnService.getExerciseById(id);
@@ -82,7 +82,7 @@ let LearnController = class LearnController {
         }
         const code = String(body?.code ?? '');
         const submission = body?.submission;
-        return (0, learn_runtime_1.validateCodeMvp)(code, exercise.validation, submission, exercise);
+        return await (0, learn_runtime_1.validateCodeMvp)(code, exercise.validation, submission, exercise);
     }
 };
 exports.LearnController = LearnController;

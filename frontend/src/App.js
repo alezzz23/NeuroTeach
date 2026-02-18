@@ -15,6 +15,8 @@ import Welcome from './components/Welcome';
 import InternalNavbar from './components/InternalNavbar';
 import { AuthProvider, useAuth } from './AuthContext';
 import { NotificationProvider } from './components/NotificationSystem';
+import { ToastContainer } from './components/common/Toast';
+import './components/common/Toast.css';
 
 
 function RequireAuth({ children }) {
@@ -81,10 +83,29 @@ function App() {
       <NotificationProvider>
         <Router>
           <AppRoutes />
+          <ToastContainerWrapper />
         </Router>
       </NotificationProvider>
     </AuthProvider>
   );
+}
+
+function ToastContainerWrapper() {
+  const [toasts, setToasts] = React.useState([]);
+  
+  React.useEffect(() => {
+    const handleToast = (e) => {
+      const { message, type } = e.detail;
+      const id = Date.now() + Math.random();
+      setToasts(prev => [...prev, { id, message, type: type || 'info' }]);
+    };
+    window.addEventListener('app:toast', handleToast);
+    return () => window.removeEventListener('app:toast', handleToast);
+  }, []);
+  
+  const removeToast = (id) => setToasts(prev => prev.filter(t => t.id !== id));
+  
+  return <ToastContainer toasts={toasts} removeToast={removeToast} />;
 }
 
 export default App;
