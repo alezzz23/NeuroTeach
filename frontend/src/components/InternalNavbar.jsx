@@ -14,7 +14,7 @@ export default function InternalNavbar() {
     { to: '/learn', label: 'Aprender', icon: 'fa-graduation-cap', match: (p) => p.startsWith('/learn') || p.startsWith('/tracks') || p.startsWith('/exercises') },
     { to: '/webcam', label: 'Emociones', icon: 'fa-video', match: (p) => p === '/webcam' },
     { to: '/chat', label: 'Chat IA', icon: 'fa-robot', match: (p) => p === '/chat' },
-    
+    { to: '/leaderboard', label: 'Ranking', icon: 'fa-trophy', match: (p) => p === '/leaderboard' },
   ];
 
   return (
@@ -43,12 +43,12 @@ export default function InternalNavbar() {
 
         <div className="inav-user">
           {userData && (
-            <div className="inav-userinfo" title={userData.name || userData.email}>
+            <Link to="/profile" className="inav-userinfo" title={`Perfil de ${userData.name || userData.email}`} style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="inav-avatar">
                 <i className="fas fa-user" />
               </div>
               <span className="inav-username">{userData.name || userData.email}</span>
-            </div>
+            </Link>
           )}
 
           <Link className="inav-logout" to="/logout" title="Cerrar sesión">

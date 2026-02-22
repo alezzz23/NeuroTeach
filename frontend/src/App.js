@@ -6,6 +6,8 @@ import Dashboard from './components/Dashboard';
 import LearnTracks from './components/LearnTracks';
 import TrackDetail from './components/TrackDetail';
 import ExerciseWorkspace from './components/ExerciseWorkspace';
+import Profile from './components/Profile';
+import Leaderboard from './components/Leaderboard';
 
 import Login from './components/Login';
 import Register from './components/Register';
@@ -31,17 +33,17 @@ function RequireAuth({ children }) {
 function RequireAuthWithWelcome({ children }) {
   const { user } = useAuth();
   const location = useLocation();
-  
+
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
-  
+
   // Verificar si el usuario necesita ver el welcome
   const welcomeCompleted = localStorage.getItem('welcomeCompleted');
   if (!welcomeCompleted && location.pathname !== '/welcome') {
     return <Navigate to="/welcome" replace />;
   }
-  
+
   return children;
 }
 
@@ -49,11 +51,11 @@ function AppRoutes() {
   const { user } = useAuth();
   const location = useLocation();
   const pathname = location.pathname;
-  
+
   // Navbar interna: solo para usuarios autenticados y fuera del flujo de auth/onboarding
   const hideNavbarRoutes = ['/', '/login', '/register', '/welcome'];
   const showNavbar = !!user && !hideNavbarRoutes.includes(pathname);
-  
+
   return (
     <>
       {showNavbar && (
@@ -72,6 +74,8 @@ function AppRoutes() {
         <Route path="/learn" element={<RequireAuth><LearnTracks /></RequireAuth>} />
         <Route path="/tracks/:id" element={<RequireAuth><TrackDetail /></RequireAuth>} />
         <Route path="/exercises/:id" element={<RequireAuth><ExerciseWorkspace /></RequireAuth>} />
+        <Route path="/profile" element={<RequireAuth><Profile /></RequireAuth>} />
+        <Route path="/leaderboard" element={<RequireAuth><Leaderboard /></RequireAuth>} />
       </Routes>
     </>
   );
@@ -92,7 +96,7 @@ function App() {
 
 function ToastContainerWrapper() {
   const [toasts, setToasts] = React.useState([]);
-  
+
   React.useEffect(() => {
     const handleToast = (e) => {
       const { message, type } = e.detail;
@@ -102,9 +106,9 @@ function ToastContainerWrapper() {
     window.addEventListener('app:toast', handleToast);
     return () => window.removeEventListener('app:toast', handleToast);
   }, []);
-  
+
   const removeToast = (id) => setToasts(prev => prev.filter(t => t.id !== id));
-  
+
   return <ToastContainer toasts={toasts} removeToast={removeToast} />;
 }
 

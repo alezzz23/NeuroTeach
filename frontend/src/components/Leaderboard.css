@@ -1,0 +1,219 @@
+.leaderboard-page {
+    min-height: calc(100vh - 60px);
+    background: var(--bg-primary, #0f1117);
+    padding: 24px;
+}
+
+.leaderboard-container {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.leaderboard-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
+    text-align: center;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.leaderboard-title i {
+    color: #fbbf24;
+}
+
+/* ========== Podium ========== */
+.leaderboard-podium {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.podium-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--bg-secondary, #161822);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 20px 16px;
+    width: 160px;
+    transition: transform 0.2s ease;
+}
+
+.podium-item:hover {
+    transform: translateY(-4px);
+}
+
+.podium-item.gold {
+    border-color: rgba(251, 191, 36, 0.3);
+    background: linear-gradient(180deg, rgba(251, 191, 36, 0.08), transparent);
+    padding-bottom: 32px;
+}
+
+.podium-item.silver {
+    border-color: rgba(156, 163, 175, 0.2);
+    background: linear-gradient(180deg, rgba(156, 163, 175, 0.06), transparent);
+}
+
+.podium-item.bronze {
+    border-color: rgba(217, 119, 6, 0.2);
+    background: linear-gradient(180deg, rgba(217, 119, 6, 0.06), transparent);
+}
+
+.podium-rank {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.podium-item.gold .podium-rank {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #000;
+}
+
+.podium-item.silver .podium-rank {
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
+    color: #fff;
+}
+
+.podium-item.bronze .podium-rank {
+    background: linear-gradient(135deg, #d97706, #b45309);
+    color: #fff;
+}
+
+.podium-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(99, 102, 241, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #a5b4fc;
+    margin-bottom: 8px;
+}
+
+.podium-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+.podium-points {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fbbf24;
+}
+
+.podium-level {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 4px;
+}
+
+/* ========== Table ========== */
+.leaderboard-table {
+    background: var(--bg-secondary, #161822);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.leaderboard-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    transition: background 0.15s ease;
+}
+
+.leaderboard-row:last-child {
+    border-bottom: none;
+}
+
+.leaderboard-row:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.leaderboard-row.is-me {
+    background: rgba(99, 102, 241, 0.06);
+    border-left: 3px solid #6366f1;
+}
+
+.lb-rank {
+    width: 28px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.lb-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(99, 102, 241, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #a5b4fc;
+    flex-shrink: 0;
+}
+
+.lb-name {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.lb-points {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fbbf24;
+}
+
+.lb-level {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    min-width: 50px;
+    text-align: right;
+}
+
+.lb-streak {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #f87171;
+    min-width: 40px;
+}
+
+@media (max-width: 768px) {
+    .leaderboard-podium {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .podium-item {
+        width: 100%;
+        max-width: 280px;
+    }
+}

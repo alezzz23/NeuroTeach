@@ -64,6 +64,38 @@ export const userService = {
     });
     return handleResponse(response);
   },
+
+  getMe: async () => {
+    const response = await fetch(`${API_BASE_URL}/user/me`, {
+      headers: { ...getAuthHeaders() },
+    });
+    return handleResponse(response);
+  },
+
+  updateProfile: async (profileData) => {
+    const response = await fetch(`${API_BASE_URL}/user/profile`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', ...getAuthHeaders() },
+      body: JSON.stringify(profileData),
+    });
+    return handleResponse(response);
+  },
+
+  changePassword: async (currentPassword, newPassword) => {
+    const response = await fetch(`${API_BASE_URL}/user/password`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', ...getAuthHeaders() },
+      body: JSON.stringify({ currentPassword, newPassword }),
+    });
+    return handleResponse(response);
+  },
+
+  getLeaderboard: async () => {
+    const response = await fetch(`${API_BASE_URL}/user/leaderboard/top`, {
+      headers: { ...getAuthHeaders() },
+    });
+    return handleResponse(response);
+  },
 };
 
 export const historyService = {
@@ -148,7 +180,31 @@ export const tutorService = {
     const response = await fetch(`${API_BASE_URL}/tutor/ask`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...getAuthHeaders() },
-      body: JSON.stringify({ question, ...context }),
+      body: JSON.stringify({ prompt: question, ...context }),
+    });
+    return handleResponse(response);
+  },
+
+  // Conversations
+  createConversation: async (title) => {
+    const response = await fetch(`${API_BASE_URL}/tutor/conversations`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...getAuthHeaders() },
+      body: JSON.stringify({ title }),
+    });
+    return handleResponse(response);
+  },
+
+  getConversations: async () => {
+    const response = await fetch(`${API_BASE_URL}/tutor/conversations`, {
+      headers: { ...getAuthHeaders() },
+    });
+    return handleResponse(response);
+  },
+
+  getConversationMessages: async (conversationId) => {
+    const response = await fetch(`${API_BASE_URL}/tutor/conversations/${conversationId}/messages`, {
+      headers: { ...getAuthHeaders() },
     });
     return handleResponse(response);
   },
